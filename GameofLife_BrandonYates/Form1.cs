@@ -209,6 +209,7 @@ namespace GameofLife_BrandonYates
                     if (xCheck >= xLen || yCheck >= yLen) { continue; }
 
                     if (universe[xCheck, yCheck] == true) count++;
+                    this.graphicsPanel1.Invalidate();
                 }
                 //if (universe[x, y])
                 //{
@@ -539,5 +540,59 @@ namespace GameofLife_BrandonYates
             this.graphicsPanel1.Invalidate();
         }
         #endregion
+
+        #region Context Menu Stip
+        private void rightClickRandom_Click(object sender, EventArgs e)
+        {
+            //Used to make right click randomize buttom
+            Random random = new Random();
+            for (int y = 0; y < this.universe.GetLength(0); ++y)
+            {
+                for (int x = 0; x < this.universe.GetLength(1); ++x)
+                    this.universe[y, x] = random.Next(0, 2) != 0;
+            }
+            this.countLivingCells();
+            this.graphicsPanel1.Invalidate();
+        }
+
+        private void rightClickGrid_Click(object sender, EventArgs e)
+        {
+            //Used to make right click Grid Color Change
+            ColorDialog dlg = new ColorDialog();
+            dlg.Color = gridColor;
+
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                gridColor = dlg.Color;
+            }
+            this.graphicsPanel1.Invalidate();
+        }
+
+        private void rightClickCell_Click(object sender, EventArgs e)
+        {
+            //Used to make right click Cell Color Change
+            ColorDialog dlg = new ColorDialog();
+            dlg.Color = cellColor;
+
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                cellColor = dlg.Color;
+            }
+            this.graphicsPanel1.Invalidate();
+        }
+
+        private void rightClickBG_Click(object sender, EventArgs e)
+        {
+            //Used to make right click Background/ Dead Cells Color Change
+            ColorDialog dlg = new ColorDialog();
+            dlg.Color = graphicsPanel1.BackColor;
+
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                graphicsPanel1.BackColor = dlg.Color;
+            }
+        }
+        #endregion
+
     }
 }
