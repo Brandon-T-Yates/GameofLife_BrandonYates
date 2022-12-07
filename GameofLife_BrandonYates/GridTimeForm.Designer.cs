@@ -37,13 +37,18 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.timerChange)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.widthChange)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.heightChange)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // cancelButton
             // 
+            this.cancelButton.AccessibleDescription = "Cancels the changes made without saving";
+            this.cancelButton.AccessibleName = "Cancel";
+            this.cancelButton.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelButton.Location = new System.Drawing.Point(230, 174);
             this.cancelButton.Name = "cancelButton";
@@ -54,6 +59,9 @@
             // 
             // okButton
             // 
+            this.okButton.AccessibleDescription = "Accepts the changes that have been made";
+            this.okButton.AccessibleName = "OK";
+            this.okButton.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.okButton.Location = new System.Drawing.Point(149, 174);
             this.okButton.Name = "okButton";
@@ -64,6 +72,9 @@
             // 
             // timerChange
             // 
+            this.timerChange.AccessibleDescription = "Used to change the speed at which generations populate by milliseconds";
+            this.timerChange.AccessibleName = "Time Changer";
+            this.timerChange.AccessibleRole = System.Windows.Forms.AccessibleRole.MenuBar;
             this.timerChange.Increment = new decimal(new int[] {
             10,
             0,
@@ -81,6 +92,8 @@
             // 
             // widthChange
             // 
+            this.widthChange.AccessibleDescription = "Used to change the cell with on the grid";
+            this.widthChange.AccessibleName = "Cell Width Changer";
             this.widthChange.Increment = new decimal(new int[] {
             5,
             0,
@@ -93,6 +106,8 @@
             // 
             // heightChange
             // 
+            this.heightChange.AccessibleDescription = "Used to change the cell with on the grid";
+            this.heightChange.AccessibleName = "Cell Height Changer";
             this.heightChange.Increment = new decimal(new int[] {
             5,
             0,
@@ -130,13 +145,24 @@
             this.label3.TabIndex = 7;
             this.label3.Text = "Height of Universe in Cells";
             // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(313, 137);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown1.TabIndex = 8;
+            // 
             // GridTimeForm
             // 
             this.AcceptButton = this.okButton;
+            this.AccessibleDescription = "Window is used to make changes to the grid and cell timer";
+            this.AccessibleName = "Change Window";
+            this.AccessibleRole = System.Windows.Forms.AccessibleRole.Window;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
             this.ClientSize = new System.Drawing.Size(311, 205);
+            this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -152,6 +178,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.timerChange)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.widthChange)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.heightChange)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -167,5 +194,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
     }
 }
