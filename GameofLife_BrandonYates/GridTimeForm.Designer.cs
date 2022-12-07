@@ -70,6 +70,11 @@
             0,
             0});
             this.timerChange.Location = new System.Drawing.Point(211, 28);
+            this.timerChange.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
             this.timerChange.Name = "timerChange";
             this.timerChange.Size = new System.Drawing.Size(59, 20);
             this.timerChange.TabIndex = 2;
