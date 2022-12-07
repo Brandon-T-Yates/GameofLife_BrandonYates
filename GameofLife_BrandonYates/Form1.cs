@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,10 +20,11 @@ namespace GameofLife_BrandonYates
         bool scratched = true;
         #endregion
 
-        #region Grid Colors
+        #region Colors
         // Drawing colors
         Color gridColor = Color.Black;
         Color cellColor = Color.Gray;
+        Color backgroundColor = Color.White;
         #endregion
 
         #region Timer
@@ -41,6 +43,7 @@ namespace GameofLife_BrandonYates
         {
             InitializeComponent();
 
+            graphicsPanel1.BackColor = Properties.Settings.Default.PanelColor;
             // Setup the timer
             timer.Interval = 100; // milliseconds
             timer.Tick += Timer_Tick;
@@ -323,6 +326,14 @@ namespace GameofLife_BrandonYates
 
         #endregion
 
+        #region Form Closing
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Properties.Settings.Default.PanelColor = graphicsPanel1.BackColor;
+            Properties.Settings.Default.Save();
+        }
+        #endregion
+
         #region Living Cell Count
         private void cellsAlive_Click(object sender, EventArgs e)
         {
@@ -346,6 +357,36 @@ namespace GameofLife_BrandonYates
         private void gridColorButton_Click(object sender, EventArgs e)
         {
             ColorDialog dlg = new ColorDialog();
+            dlg.Color = gridColor;
+
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                gridColor = dlg.Color;
+            }
+            this.graphicsPanel1.Invalidate();
+        }
+        #endregion
+
+        #region Cell Color
+        private void cellColorButton_Click(object sender, EventArgs e)
+        {
+
+            ColorDialog dlg = new ColorDialog();
+            dlg.Color = cellColor;
+
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                cellColor = dlg.Color;
+            }
+            this.graphicsPanel1.Invalidate();
+        }
+
+        #endregion
+
+        #region Background Color
+        private void backgroundColorTool_Click(object sender, EventArgs e)
+        {
+            ColorDialog dlg = new ColorDialog();
             dlg.Color = graphicsPanel1.BackColor;
 
             if (DialogResult.OK == dlg.ShowDialog())
@@ -355,16 +396,146 @@ namespace GameofLife_BrandonYates
         }
         #endregion
 
-        #region Cell Color
-        private void cellColorButton_Click(object sender, EventArgs e)
+        #region Save File
+        private void saveButton_Click(object sender, EventArgs e)
         {
-            ColorDialog dlg = new ColorDialog();
-            dlg.Color = cellColor;
+            SaveFileDialog dlg = new SaveFileDialog();
+            dlg.Filter = "All Files|*.*|Cells|*.cells";
+            dlg.FilterIndex = 2; dlg.DefaultExt = "cells";
+
 
             if (DialogResult.OK == dlg.ShowDialog())
             {
-                cellColor = dlg.Color;
+                StreamWriter writer = new StreamWriter(dlg.FileName);
+
+                // Write any comments you want to include first.
+                // Prefix all comment strings with an exclamation point.
+                // Use WriteLine to write the strings to the file. 
+                // It appends a CRLF for you.
+                writer.WriteLine("!This is my comment.");
+
+                // Iterate through the universe one row at a time.
+                for (int y = 0; y < universe.GetLength(0); y++)
+                {
+                    // Create a string to represent the current row.
+                    String currentRow = string.Empty;
+
+                    // Iterate through the current row one cell at a time.
+                    for (int x = 0; x < universe.GetLength(0); x++)
+                    {
+                        // If the universe[x,y] is alive then append 'O' (capital O)
+                        // to the row string.
+
+                        // Else if the universe[x,y] is dead then append '.' (period)
+                        // to the row string.
+                        if (x > 0)
+                            writer.WriteLine();
+                        for (int z = 0; z < this.universe.GetLength(0); ++z)
+                        {
+                            if (!this.universe[z, x])
+                                writer.Write(".");
+                            else
+                                writer.Write("0");
+                        }
+                    }
+
+                    // Once the current row has been read through and the 
+                    // string constructed then write it to the file using WriteLine.
+                }
+
+                // After all rows and columns have been written then close the file.
+                writer.Close();
             }
+        }
+
+        #endregion
+
+        #region Open File
+        private void openButton_Click(object sender, EventArgs e)
+        {
+            this.universe[0, 0] = true;
+            int x = 0;
+            int y = 0;
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.DefaultExt = "cells";
+            openFileDialog.Title = "Opening the Universe.";
+            openFileDialog.Filter = "cells files (*.cells)|*.cells|Text Files (*.txt)|*.txt|All files (*.*)|*.*";
+            openFileDialog.CheckPathExists = true;
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                MemoryStream memoryStream = new MemoryStream();
+                StreamReader streamReader1 = new StreamReader(openFileDialog.FileName);
+                string str1;
+                while ((str1 = streamReader1.ReadLine()) != null)
+                {
+                    if (str1[0] != '!' && str1[1] != '!')
+                    {
+                        y = str1.Length;
+                        ++x;
+                    }
+                }
+                streamReader1.Close();
+                this.universe = new bool[y, x];
+                int num = y - 1;
+                int index1 = 0;
+                StreamReader streamReader2 = new StreamReader(openFileDialog.FileName);
+                string str2;
+                while ((str2 = streamReader2.ReadLine()) != null)
+                {
+                    if (str2[0] != '!')
+                    {
+                        for (int index2 = 0; index2 < num; ++index2)
+                        {
+                            if (str2[index2] == '.')
+                                this.universe[index2, index1] = true;
+                            else if (str2[index2] == 'O')
+                                this.universe[index2, index1] = true;
+                        }
+                        ++index1;
+                    }
+                }
+                streamReader2.Close();
+            }
+            this.countLivingCells();
+            this.graphicsPanel1.Invalidate();
+        }
+
+
+        #endregion
+
+        #region Reset
+        private void resetButton_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Reset();
+            graphicsPanel1.BackColor = Properties.Settings.Default.PanelColor;
+        }
+        #endregion
+
+        #region Reload
+        private void reloadButton_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Reload();
+            graphicsPanel1.BackColor = Properties.Settings.Default.PanelColor;
+        }
+        #endregion
+
+        #region Random Seed
+        private void randomSeed_Click(object sender, EventArgs e)
+        {
+       
+        }
+        #endregion
+
+        #region Random Time
+        private void randomTime_Click(object sender, EventArgs e)
+        {
+            Random random = new Random();
+            for (int y = 0; y < this.universe.GetLength(0); ++y)
+            {
+                for (int x = 0; x < this.universe.GetLength(1); ++x)
+                    this.universe[y, x] = random.Next(0, 2) != 0;
+            }
+            this.countLivingCells();
             this.graphicsPanel1.Invalidate();
         }
         #endregion
