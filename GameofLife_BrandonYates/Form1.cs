@@ -338,6 +338,7 @@ namespace GameofLife_BrandonYates
         #region Form Closing
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
+            // Auto saves color when clicking the X on the window
             Properties.Settings.Default.PanelColor = graphicsPanel1.BackColor;
             Properties.Settings.Default.Save();
         }
@@ -346,6 +347,7 @@ namespace GameofLife_BrandonYates
         #region Living Cell Count
         private void cellsAlive_Click(object sender, EventArgs e)
         {
+            // Handles the counting of the cells on the window
             this.LivingCells = 0;
             for (int x = 0; x < this.universe.GetLength(1); ++x)
             {
@@ -365,6 +367,7 @@ namespace GameofLife_BrandonYates
         #region Grid Color
         private void gridColorButton_Click(object sender, EventArgs e)
         {
+            //Promts dialog and allows color change based on user selection 
             ColorDialog dlg = new ColorDialog();
             dlg.Color = gridColor;
 
@@ -379,7 +382,7 @@ namespace GameofLife_BrandonYates
         #region Cell Color
         private void cellColorButton_Click(object sender, EventArgs e)
         {
-
+            //Promts dialog and allows color change based on user selection 
             ColorDialog dlg = new ColorDialog();
             dlg.Color = cellColor;
 
@@ -395,6 +398,7 @@ namespace GameofLife_BrandonYates
         #region Background Color
         private void backgroundColorTool_Click(object sender, EventArgs e)
         {
+            //Promts dialog and allows color change based on user selection 
             ColorDialog dlg = new ColorDialog();
             dlg.Color = graphicsPanel1.BackColor;
 
@@ -408,6 +412,7 @@ namespace GameofLife_BrandonYates
         #region Save File
         private void saveButton_Click(object sender, EventArgs e)
         {
+            // This is used to save the pattern as a .cells file
             SaveFileDialog dlg = new SaveFileDialog();
             dlg.Filter = "All Files|*.*|Cells|*.cells";
             dlg.FilterIndex = 2; dlg.DefaultExt = "cells";
@@ -462,6 +467,7 @@ namespace GameofLife_BrandonYates
         #region Open File
         private void openButton_Click(object sender, EventArgs e)
         {
+            // This is used to open .cells files 
             this.universe[0, 0] = true;
             int x = 0;
             int y = 0;
@@ -515,6 +521,7 @@ namespace GameofLife_BrandonYates
         #region Reset
         private void resetButton_Click(object sender, EventArgs e)
         {
+            // Resets the background color to the default color save on .exe
             Properties.Settings.Default.Reset();
             graphicsPanel1.BackColor = Properties.Settings.Default.PanelColor;
         }
@@ -523,6 +530,7 @@ namespace GameofLife_BrandonYates
         #region Reload
         private void reloadButton_Click(object sender, EventArgs e)
         {
+            // Reloads to the last color change that was saved in local files
             Properties.Settings.Default.Reload();
             graphicsPanel1.BackColor = Properties.Settings.Default.PanelColor;
         }
@@ -538,6 +546,7 @@ namespace GameofLife_BrandonYates
         #region Random Time
         private void randomTime_Click(object sender, EventArgs e)
         {
+            // Randomly generates living cells on the grid
             Random random = new Random();
             for (int y = 0; y < this.universe.GetLength(0); ++y)
             {
