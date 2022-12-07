@@ -43,13 +43,14 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.customizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hUDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.neighborCountToggle = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.randomSeed = new System.Windows.Forms.ToolStripMenuItem();
             this.randomTime = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gridAndTimeButton = new System.Windows.Forms.ToolStripMenuItem();
             this.colorTool = new System.Windows.Forms.ToolStripMenuItem();
             this.gridColorButton = new System.Windows.Forms.ToolStripMenuItem();
             this.cellColorButton = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,7 +58,6 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.resetButton = new System.Windows.Forms.ToolStripMenuItem();
             this.reloadButton = new System.Windows.Forms.ToolStripMenuItem();
-            this.gridAndTimeButton = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.previousButton = new System.Windows.Forms.ToolStrip();
             this.NewGrid = new System.Windows.Forms.ToolStripButton();
@@ -192,23 +192,28 @@
             // toolsToolStripMenuItem
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.customizeToolStripMenuItem,
-            this.optionsToolStripMenuItem});
+            this.hUDToolStripMenuItem,
+            this.neighborCountToggle});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.toolsToolStripMenuItem.Text = "&View";
             // 
-            // customizeToolStripMenuItem
+            // hUDToolStripMenuItem
             // 
-            this.customizeToolStripMenuItem.Name = "customizeToolStripMenuItem";
-            this.customizeToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
-            this.customizeToolStripMenuItem.Text = "&Customize";
+            this.hUDToolStripMenuItem.Checked = true;
+            this.hUDToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.hUDToolStripMenuItem.Name = "hUDToolStripMenuItem";
+            this.hUDToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.hUDToolStripMenuItem.Text = "HUD";
             // 
-            // optionsToolStripMenuItem
+            // neighborCountToggle
             // 
-            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
-            this.optionsToolStripMenuItem.Text = "&Options";
+            this.neighborCountToggle.Checked = true;
+            this.neighborCountToggle.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.neighborCountToggle.Name = "neighborCountToggle";
+            this.neighborCountToggle.Size = new System.Drawing.Size(180, 22);
+            this.neighborCountToggle.Text = "Neighbor Count";
+            this.neighborCountToggle.Click += new System.EventHandler(this.neighborCountToggle_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -251,6 +256,13 @@
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.settingsToolStripMenuItem.Text = "&Settings";
             // 
+            // gridAndTimeButton
+            // 
+            this.gridAndTimeButton.Name = "gridAndTimeButton";
+            this.gridAndTimeButton.Size = new System.Drawing.Size(161, 22);
+            this.gridAndTimeButton.Text = "Grid Size && Time";
+            this.gridAndTimeButton.Click += new System.EventHandler(this.gridAndTimeButton_Click);
+            // 
             // colorTool
             // 
             this.colorTool.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -258,7 +270,7 @@
             this.cellColorButton,
             this.backgroundColorTool});
             this.colorTool.Name = "colorTool";
-            this.colorTool.Size = new System.Drawing.Size(180, 22);
+            this.colorTool.Size = new System.Drawing.Size(161, 22);
             this.colorTool.Text = "&Color";
             // 
             // gridColorButton
@@ -285,28 +297,21 @@
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(158, 6);
             // 
             // resetButton
             // 
             this.resetButton.Name = "resetButton";
-            this.resetButton.Size = new System.Drawing.Size(180, 22);
+            this.resetButton.Size = new System.Drawing.Size(161, 22);
             this.resetButton.Text = "&Reset";
             this.resetButton.Click += new System.EventHandler(this.resetButton_Click);
             // 
             // reloadButton
             // 
             this.reloadButton.Name = "reloadButton";
-            this.reloadButton.Size = new System.Drawing.Size(180, 22);
+            this.reloadButton.Size = new System.Drawing.Size(161, 22);
             this.reloadButton.Text = "&Reload";
             this.reloadButton.Click += new System.EventHandler(this.reloadButton_Click);
-            // 
-            // gridAndTimeButton
-            // 
-            this.gridAndTimeButton.Name = "gridAndTimeButton";
-            this.gridAndTimeButton.Size = new System.Drawing.Size(180, 22);
-            this.gridAndTimeButton.Text = "Grid Size && Time";
-            this.gridAndTimeButton.Click += new System.EventHandler(this.gridAndTimeButton_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -539,8 +544,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem customizeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripButton NewGrid;
@@ -572,6 +575,8 @@
         private System.Windows.Forms.ToolStripMenuItem rightClickCell;
         private System.Windows.Forms.ToolStripMenuItem rightClickBG;
         private System.Windows.Forms.ToolStripMenuItem gridAndTimeButton;
+        private System.Windows.Forms.ToolStripMenuItem hUDToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem neighborCountToggle;
     }
 }
 

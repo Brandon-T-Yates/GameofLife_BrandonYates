@@ -187,7 +187,7 @@ namespace GameofLife_BrandonYates
         }
         #endregion
 
-        #region Counting Neighbors
+        #region Finite Rules
         private int CountNeighborsFinite(int x, int y)
         {
             int count = 0;
@@ -619,7 +619,24 @@ namespace GameofLife_BrandonYates
 
             dlg.ShowDialog();
         }
+
+
         #endregion
 
+        #region Neighbor Counting
+        private void neighborCountToggle_Click(object sender, EventArgs e)
+        {
+            //Font font = new Font("Arial", 20f);
+
+            //StringFormat stringFormat = new StringFormat();
+            //stringFormat.Alignment = StringAlignment.Center;
+            //stringFormat.LineAlignment = StringAlignment.Center;
+
+            //Rectangle rect = new Rectangle(0, 0, 100, 100);
+            //int neighbors = 8;
+
+            //e.Graphics.DrawString(neighbors.ToString(), font, Brushes.Black, rect, stringFormat);
+        }
+        #endregion
     }
 }
