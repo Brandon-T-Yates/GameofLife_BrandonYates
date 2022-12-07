@@ -14,7 +14,7 @@ namespace GameofLife_BrandonYates
     public partial class Form1 : Form
     {
         #region Arrays
-        // The universe array
+        // The universe arrays
         bool[,] universe = new bool[20, 20];
         bool[,] scratchPad = new bool[20, 20];
         bool scratched = true;
@@ -161,7 +161,7 @@ namespace GameofLife_BrandonYates
         }
         #endregion
 
-        #region Something
+        #region Turning Cells
         private void graphicsPanel1_MouseClick(object sender, MouseEventArgs e)
         {
             // If the left mouse button was clicked
@@ -223,6 +223,7 @@ namespace GameofLife_BrandonYates
         #region Counting LivingCells
         private void countLivingCells()
         {
+            //Counts the total number of living cells
             this.LivingCells = 0;
             for (int x = 0; x < this.universe.GetLength(1); ++x)
             {
@@ -238,6 +239,7 @@ namespace GameofLife_BrandonYates
         #region Finite & T
         private void Checker()
         {
+            //The ruling for how the cells are supposed to act under Finite grid
             scratchPad = new bool[universe.GetLength(0), universe.GetLength(1)];
 
             for (int x = 0; x < universe.GetLength(0); x++)
@@ -272,6 +274,7 @@ namespace GameofLife_BrandonYates
         #region Exit
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //Used to close the program
             this.Close();
         }
         #endregion
@@ -279,6 +282,7 @@ namespace GameofLife_BrandonYates
         #region Play
         private void playButton_Click(object sender, EventArgs e)
         {
+            //Runs the program
             this.timer.Enabled = true;
         }
         #endregion
@@ -286,6 +290,7 @@ namespace GameofLife_BrandonYates
         #region Pause
         private void pauseButton_Click(object sender, EventArgs e)
         {
+            //Pauses the generation count
             this.countLivingCells();
             this.timer.Enabled = false;
         }
@@ -294,6 +299,7 @@ namespace GameofLife_BrandonYates
         #region Next
         private void nextButton_Click(object sender, EventArgs e)
         {
+            // Goes to the next generation of cell life
             this.countLivingCells();
             this.NextGeneration();
         }
@@ -309,8 +315,9 @@ namespace GameofLife_BrandonYates
 
         #region Empty
         private void NewGrid_Click(object sender, EventArgs e)
-        {
-            this.universe = new bool[15, 15];
+        { 
+            // Creates a new clean universe
+            this.universe = new bool[20, 20];
             this.generations = 0;
             this.toolStripStatusLabelGenerations.Text = "Generations = " + this.generations.ToString();
             this.graphicsPanel1.Invalidate();
@@ -318,7 +325,8 @@ namespace GameofLife_BrandonYates
 
         private void fileNew_Click(object sender, EventArgs e)
         {
-            this.universe = new bool[15, 15];
+            // Creates a new clean universe
+            this.universe = new bool[20, 20];
             this.generations = 0;
             this.toolStripStatusLabelGenerations.Text = "Generations = " + this.generations.ToString();
             this.graphicsPanel1.Invalidate();
