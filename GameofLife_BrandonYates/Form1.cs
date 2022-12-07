@@ -592,6 +592,16 @@ namespace GameofLife_BrandonYates
                 graphicsPanel1.BackColor = dlg.Color;
             }
         }
+
+        #endregion
+
+        #region Grid & Time
+        private void gridAndTimeButton_Click(object sender, EventArgs e)
+        {
+            GridTimeForm dlg = new GridTimeForm();
+
+            dlg.ShowDialog();
+        }
         #endregion
 
     }
