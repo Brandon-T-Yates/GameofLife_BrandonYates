@@ -72,13 +72,13 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelGenerations = new System.Windows.Forms.ToolStripStatusLabel();
             this.cellsAlive = new System.Windows.Forms.ToolStripStatusLabel();
-            this.graphicsPanel1 = new GameofLife_BrandonYates.GraphicsPanel();
             this.contextMenuRand = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.rightClickRandom = new System.Windows.Forms.ToolStripMenuItem();
             this.rightClickColor = new System.Windows.Forms.ToolStripMenuItem();
             this.rightClickGrid = new System.Windows.Forms.ToolStripMenuItem();
             this.rightClickCell = new System.Windows.Forms.ToolStripMenuItem();
             this.rightClickBG = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphicsPanel1 = new GameofLife_BrandonYates.GraphicsPanel();
             this.menuStrip1.SuspendLayout();
             this.previousButton.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -95,7 +95,7 @@
             this.toolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(586, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(580, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -205,6 +205,7 @@
             this.hUDToolStripMenuItem.Name = "hUDToolStripMenuItem";
             this.hUDToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.hUDToolStripMenuItem.Text = "HUD";
+            this.hUDToolStripMenuItem.Click += new System.EventHandler(this.hUDToolStripMenuItem_Click);
             // 
             // neighborCountToggle
             // 
@@ -228,19 +229,19 @@
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(128, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(177, 6);
             // 
             // randomSeed
             // 
             this.randomSeed.Name = "randomSeed";
-            this.randomSeed.Size = new System.Drawing.Size(131, 22);
+            this.randomSeed.Size = new System.Drawing.Size(180, 22);
             this.randomSeed.Text = "From Seed";
             this.randomSeed.Click += new System.EventHandler(this.randomSeed_Click);
             // 
             // randomTime
             // 
             this.randomTime.Name = "randomTime";
-            this.randomTime.Size = new System.Drawing.Size(131, 22);
+            this.randomTime.Size = new System.Drawing.Size(180, 22);
             this.randomTime.Text = "From Time";
             this.randomTime.Click += new System.EventHandler(this.randomTime_Click);
             // 
@@ -334,7 +335,7 @@
             this.toolStripSeparator7});
             this.previousButton.Location = new System.Drawing.Point(0, 24);
             this.previousButton.Name = "previousButton";
-            this.previousButton.Size = new System.Drawing.Size(586, 25);
+            this.previousButton.Size = new System.Drawing.Size(580, 25);
             this.previousButton.TabIndex = 1;
             this.previousButton.Text = "previousButton";
             // 
@@ -422,9 +423,9 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabelGenerations,
             this.cellsAlive});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 458);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 450);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(586, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(580, 22);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -440,18 +441,6 @@
             this.cellsAlive.Size = new System.Drawing.Size(81, 17);
             this.cellsAlive.Text = "Cells Alive = 0";
             this.cellsAlive.Click += new System.EventHandler(this.cellsAlive_Click);
-            // 
-            // graphicsPanel1
-            // 
-            this.graphicsPanel1.BackColor = System.Drawing.SystemColors.Window;
-            this.graphicsPanel1.ContextMenuStrip = this.contextMenuRand;
-            this.graphicsPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.graphicsPanel1.Location = new System.Drawing.Point(0, 49);
-            this.graphicsPanel1.Name = "graphicsPanel1";
-            this.graphicsPanel1.Size = new System.Drawing.Size(586, 409);
-            this.graphicsPanel1.TabIndex = 3;
-            this.graphicsPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.graphicsPanel1_Paint);
-            this.graphicsPanel1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.graphicsPanel1_MouseClick);
             // 
             // contextMenuRand
             // 
@@ -500,11 +489,23 @@
             this.rightClickBG.Text = "Background Color";
             this.rightClickBG.Click += new System.EventHandler(this.rightClickBG_Click);
             // 
+            // graphicsPanel1
+            // 
+            this.graphicsPanel1.BackColor = System.Drawing.SystemColors.Window;
+            this.graphicsPanel1.ContextMenuStrip = this.contextMenuRand;
+            this.graphicsPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.graphicsPanel1.Location = new System.Drawing.Point(0, 49);
+            this.graphicsPanel1.Name = "graphicsPanel1";
+            this.graphicsPanel1.Size = new System.Drawing.Size(580, 401);
+            this.graphicsPanel1.TabIndex = 3;
+            this.graphicsPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.graphicsPanel1_Paint);
+            this.graphicsPanel1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.graphicsPanel1_MouseClick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(586, 480);
+            this.ClientSize = new System.Drawing.Size(580, 472);
             this.Controls.Add(this.graphicsPanel1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.previousButton);

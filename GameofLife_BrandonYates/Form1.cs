@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -539,7 +540,9 @@ namespace GameofLife_BrandonYates
         #region Random Seed
         private void randomSeed_Click(object sender, EventArgs e)
         {
-       
+            RandomSeed dlg = new RandomSeed();
+
+            dlg.ShowDialog();
         }
         #endregion
 
@@ -612,12 +615,19 @@ namespace GameofLife_BrandonYates
 
         #endregion
 
-        #region Grid & Time
+        #region Grid & Time Change
         private void gridAndTimeButton_Click(object sender, EventArgs e)
         {
-            GridTimeForm dlg = new GridTimeForm();
-
-            dlg.ShowDialog();
+            GridTimeForm gridTime = new GridTimeForm();
+            gridTime.SetTime(this.timer.Interval);
+            gridTime.SetGridWidth(this.universe.GetLength(1));
+            gridTime.SetGridHeight(this.universe.GetLength(0));
+            if (DialogResult.OK == gridTime.ShowDialog())
+            {
+                this.timer.Interval = gridTime.GetTime();
+                this.universe = new bool[gridTime.GetGridWidth, gridTime.GetGridHeight];
+            }
+            graphicsPanel1.Invalidate();
         }
 
 
@@ -638,5 +648,10 @@ namespace GameofLife_BrandonYates
             //e.Graphics.DrawString(neighbors.ToString(), font, Brushes.Black, rect, stringFormat);
         }
         #endregion
+
+        private void hUDToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //this.golControl1.HUDVisible = !this.golControl1.HUDVisible;
+        }
     }
 }

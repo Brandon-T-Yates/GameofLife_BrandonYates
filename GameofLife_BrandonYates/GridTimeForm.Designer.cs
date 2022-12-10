@@ -86,9 +86,19 @@
             0,
             0,
             0});
+            this.timerChange.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.timerChange.Name = "timerChange";
             this.timerChange.Size = new System.Drawing.Size(59, 20);
             this.timerChange.TabIndex = 2;
+            this.timerChange.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             // 
             // widthChange
             // 
