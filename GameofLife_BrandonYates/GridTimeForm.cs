@@ -30,11 +30,11 @@ namespace GameofLife_BrandonYates
         #endregion
 
         #region Time
-        //creates the getter and setter for time change 
-        //public int GetTime() => (int)this.timer.Value;
-        //public void SetTime(int time) => this.timer.Value = (Decimal)time;
+        //creates the getter and setter for time change
+        public int GetTime() => (int)this.timer.Value;
+        public void SetTime(int time) => this.timer.Value = (Decimal)time;
         #endregion
-          
+
         #region Grid Size
         public int GetGridWidth => (int)this.width.Value;
         public void SetGridWidth(int widthV) => this.width.Value = (Decimal) widthV;

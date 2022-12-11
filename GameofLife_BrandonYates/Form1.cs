@@ -41,6 +41,7 @@ namespace GameofLife_BrandonYates
 
         #region ints
         // Generation count
+        int Seed = 5899632;
         bool CounterVisible = true;
         int generations = 0;
         int LivingCells = 0;
@@ -201,7 +202,7 @@ namespace GameofLife_BrandonYates
 
                 this.countLivingCells();
                 // Tell Windows you need to repaint
-               
+
                 graphicsPanel1.Invalidate();
             }
         }
@@ -229,7 +230,6 @@ namespace GameofLife_BrandonYates
                     if (xCheck >= xLen || yCheck >= yLen) { continue; }
 
                     if (universe[xCheck, yCheck] == true) count++;
-                    this.graphicsPanel1.Invalidate();
                 }
             }
             return count;
@@ -570,9 +570,29 @@ namespace GameofLife_BrandonYates
         #region Random Seed
         private void randomSeed_Click(object sender, EventArgs e)
         {
-            RandomSeed dlg = new RandomSeed();
+            RandomSeed setSeed = new RandomSeed();
+            setSeed.SetSeedMenu(this.Seed);
+            if (DialogResult.OK != setSeed.ShowDialog())
+                return;
+            this.Seed = setSeed.GetSeedMenu();
+            this.Randomize(this.Seed);
+            //RandomSeed dlg = new RandomSeed();
 
-            dlg.ShowDialog();
+            //dlg.ShowDialog();
+        }
+        private void Randomize(int Seed)
+        {
+            Random random1 = new Random(Seed);
+            Random random2 = new Random(Seed);
+            for (int index1 = 0; index1 < this.universe.GetLength(1); ++index1)
+            {
+                for (int index2 = 0; index2 < this.universe.GetLength(0); ++index2)
+                {
+                    if (random2.Next(2) > 0)
+                        this.universe[index2, index1] = true;
+                }
+            }
+            this.graphicsPanel1.Invalidate();
         }
         #endregion
 
@@ -649,12 +669,12 @@ namespace GameofLife_BrandonYates
         private void gridAndTimeButton_Click(object sender, EventArgs e)
         {
             GridTimeForm gridTime = new GridTimeForm();
-            //gridTime.SetTime(this.timer.Interval);
-            //gridTime.SetGridWidth(this.universe.GetLength(1));
-            //gridTime.SetGridHeight(this.universe.GetLength(0));
+            gridTime.SetTime(this.timer.Interval);
+            gridTime.SetGridWidth(this.universe.GetLength(1));
+            gridTime.SetGridHeight(this.universe.GetLength(0));
             if (DialogResult.OK == gridTime.ShowDialog())
             {
-                //this.timer.Interval = gridTime.GetTime();
+                this.timer.Interval = gridTime.GetTime();
                 this.universe = new bool[gridTime.GetGridWidth, gridTime.GetGridHeight];
             }
             graphicsPanel1.Invalidate();
@@ -676,6 +696,7 @@ namespace GameofLife_BrandonYates
             }
         }
         #endregion
+
 
         public string PackMode() => !this.PacLike ? "Finite" : "Toroidal";
 
