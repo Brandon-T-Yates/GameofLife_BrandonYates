@@ -16,10 +16,28 @@ namespace GameofLife_BrandonYates
         {
             InitializeComponent();
         }
+        public int Seed
+        {
+            get => (int)this.numericUpDown1.Value;
+            set => this.numericUpDown1.Value = (Decimal)value;
+        }
+        private void button1_Click(object sender, EventArgs e) => this.numericUpDown1.Value = (Decimal)new Random().Next(int.MinValue, int.MaxValue);
 
+        public void Randomize(int seed)
+        {
+            //this.universe.Randomize(seed);
+            //if (this.Randomized == null)
+            //    return;
+            //this.Randomized((object)this, new UniverseEventArgs(this.universe));
+        }
         private void randomizeButton_Click(object sender, EventArgs e)
         {
-            //Random.seed
+            //RandomSeed randomSeed = new RandomSeed();
+            //randomSeed.Seed = this.seed;
+            //if (DialogResult.OK != randomSeed.ShowDialog())
+            //    return;
+            //this.seed = randomSeed.Seed;
+            //this.golControl1.Randomize(this.seed);
         }
     }
 }

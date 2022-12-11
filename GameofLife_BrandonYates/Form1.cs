@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -16,9 +17,14 @@ namespace GameofLife_BrandonYates
     {
         #region Arrays
         // The universe arrays
-        bool[,] universe = new bool[20, 20];
-        bool[,] scratchPad = new bool[20, 20];
+        static int Yset = 20;
+        static int Xset = 20;
+        bool[,] universe = new bool[Form1.Xset, Form1.Yset];
+        bool[,] scratchPad = new bool[Form1.Xset, Form1.Yset];
+        bool[,] faded = new bool[Form1.Xset, Form1.Yset];
+        bool[,] Blank = new bool[Form1.Xset, Form1.Yset];
         bool scratched = true;
+        bool PacLike = true;
         #endregion
 
         #region Colors
@@ -35,6 +41,7 @@ namespace GameofLife_BrandonYates
 
         #region ints
         // Generation count
+        bool CounterVisible = true;
         int generations = 0;
         int LivingCells = 0;
         #endregion
@@ -149,10 +156,21 @@ namespace GameofLife_BrandonYates
                     if (universe[x, y] == true)
                     {
                         e.Graphics.FillRectangle(cellBrush, cellRect);
+                        //e.Graphics.DrawString(this.CountNeighborsFinite(x, y).ToString(), this.Font, Brushes.Black, (RectangleF)cellRect);
                     }
 
                     // Outline the cell with a pen
                     e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
+
+                    Font font = new Font("Arial", 7f);
+                    StringFormat stringFormat = new StringFormat();
+                    stringFormat.Alignment = StringAlignment.Center;
+                    stringFormat.LineAlignment = StringAlignment.Center;
+
+                    if (CounterVisible == true)
+                    {
+                        e.Graphics.DrawString(CountNeighborsFinite(x, y).ToString(), Font, Brushes.DarkRed,cellRect, stringFormat);
+                    }
                 }
             }
 
@@ -183,6 +201,7 @@ namespace GameofLife_BrandonYates
 
                 this.countLivingCells();
                 // Tell Windows you need to repaint
+               
                 graphicsPanel1.Invalidate();
             }
         }
@@ -212,10 +231,6 @@ namespace GameofLife_BrandonYates
                     if (universe[xCheck, yCheck] == true) count++;
                     this.graphicsPanel1.Invalidate();
                 }
-                //if (universe[x, y])
-                //{
-                //    count--;
-                //}
             }
             return count;
         }
@@ -249,7 +264,26 @@ namespace GameofLife_BrandonYates
                 {
                     if (scratched)
                     {
+                    //    if ((CountNeighborsToroidal(x, i) < 2) && universe[x, i])
+                    //    {
+                    //        scratchPad[x, i] = false;
+                    //    }
+                    //    else if ((CountNeighborsToroidal(x, i) > 3) && universe[x, i])
+                    //    {
+                    //        scratchPad[x, i] = false;
+                    //    }
+                    //    else if ((CountNeighborsToroidal(x, i) == 2 || CountNeighborsToroidal(x,i) == 3)&& universe[x, i])
+                    //    {
+                    //        scratchPad[x, i] = true;
+                    //    }
+                    //    else if ((CountNeighborsToroidal(x,i) == 3)&& universe[x,i] == false)
+                    //    {
+                    //        scratchPad[x, i] = true;
+                    //    }
 
+                    //}
+                    //else
+                    //{
                         if ((CountNeighborsFinite(x, i) < 2) && universe[x, i])
                         {
                             scratchPad[x, i] = false;
@@ -269,6 +303,42 @@ namespace GameofLife_BrandonYates
                     }
                 }
             }
+        }
+        #endregion
+
+        #region Toroidal Rules
+        private int CountNeighborsToroidal(int x, int y)
+        {
+            int count = 0;
+            int xLen = universe.GetLength(0);
+            int yLen = universe.GetLength(1);
+            for (int yOffset = -1; yOffset <= 1; yOffset++)
+            {
+                for (int xOffset = -1; xOffset <= 1; xOffset++)
+                {
+                    int xCheck = x + xOffset;
+                    int yCheck = y + yOffset;
+                    // if xOffset and yOffset are both equal to 0 then continue
+                    if ((xCheck == 0) && (yCheck == 0)) { continue; }
+                    // if xCheck is less than 0 then set to xLen - 1
+                    // if yCheck is less than 0 then set to yLen - 1
+                    if (xCheck < 0 && yCheck < 0)
+                    {
+                        xCheck = xLen - 1;
+                        yCheck = yLen - 1;
+                    }
+                    // if xCheck is greater than or equal too xLen then set to 0
+                    // if yCheck is greater than or equal too yLen then set to 0
+                    if (xCheck >= xLen && yCheck >= yLen)
+                    {
+                        xCheck = 0;
+                        yCheck = 0;
+                    }
+                    if (universe[xCheck, yCheck] == true) count++;
+                    this.graphicsPanel1.Invalidate();
+                }
+            }
+            return count;
         }
         #endregion
 
@@ -413,54 +483,22 @@ namespace GameofLife_BrandonYates
         #region Save File
         private void saveButton_Click(object sender, EventArgs e)
         {
-            // This is used to save the pattern as a .cells file
-            SaveFileDialog dlg = new SaveFileDialog();
-            dlg.Filter = "All Files|*.*|Cells|*.cells";
-            dlg.FilterIndex = 2; dlg.DefaultExt = "cells";
-
-
-            if (DialogResult.OK == dlg.ShowDialog())
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "All Files|*.*|Cells|*.cells";
+            saveFileDialog.FilterIndex = 2;
+            saveFileDialog.DefaultExt = "cells";
+            if (DialogResult.OK != saveFileDialog.ShowDialog())
+                return;
+            StreamWriter streamWriter = new StreamWriter(saveFileDialog.FileName);
+            streamWriter.WriteLine(string.Format("!{0}", (object)DateTime.Now));
+            for (int index1 = 0; index1 < this.universe.GetLength(1); ++index1)
             {
-                StreamWriter writer = new StreamWriter(dlg.FileName);
-
-                // Write any comments you want to include first.
-                // Prefix all comment strings with an exclamation point.
-                // Use WriteLine to write the strings to the file. 
-                // It appends a CRLF for you.
-                writer.WriteLine("!This is my comment.");
-
-                // Iterate through the universe one row at a time.
-                for (int y = 0; y < universe.GetLength(0); y++)
-                {
-                    // Create a string to represent the current row.
-                    String currentRow = string.Empty;
-
-                    // Iterate through the current row one cell at a time.
-                    for (int x = 0; x < universe.GetLength(0); x++)
-                    {
-                        // If the universe[x,y] is alive then append 'O' (capital O)
-                        // to the row string.
-
-                        // Else if the universe[x,y] is dead then append '.' (period)
-                        // to the row string.
-                        if (x > 0)
-                            writer.WriteLine();
-                        for (int z = 0; z < this.universe.GetLength(0); ++z)
-                        {
-                            if (!this.universe[z, x])
-                                writer.Write(".");
-                            else
-                                writer.Write("0");
-                        }
-                    }
-
-                    // Once the current row has been read through and the 
-                    // string constructed then write it to the file using WriteLine.
-                }
-
-                // After all rows and columns have been written then close the file.
-                writer.Close();
+                string str = string.Empty;
+                for (int index2 = 0; index2 < this.universe.GetLength(0); ++index2)
+                    str = !this.universe[index2, index1] ? str + "O" : str + "@";
+                streamWriter.WriteLine(str);
             }
+            streamWriter.Close();
         }
 
         #endregion
@@ -468,52 +506,44 @@ namespace GameofLife_BrandonYates
         #region Open File
         private void openButton_Click(object sender, EventArgs e)
         {
-            // This is used to open .cells files 
-            this.universe[0, 0] = true;
-            int x = 0;
-            int y = 0;
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.DefaultExt = "cells";
-            openFileDialog.Title = "Opening the Universe.";
-            openFileDialog.Filter = "cells files (*.cells)|*.cells|Text Files (*.txt)|*.txt|All files (*.*)|*.*";
-            openFileDialog.CheckPathExists = true;
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            openFileDialog.Filter = "All Files|*.*|Cells|*.cells";
+            openFileDialog.FilterIndex = 2;
+            if (DialogResult.OK != openFileDialog.ShowDialog())
+                return;
+            StreamReader streamReader = new StreamReader(openFileDialog.FileName);
+            int length1 = 0;
+            int length2 = 0;
+            while (!streamReader.EndOfStream)
             {
-                MemoryStream memoryStream = new MemoryStream();
-                StreamReader streamReader1 = new StreamReader(openFileDialog.FileName);
-                string str1;
-                while ((str1 = streamReader1.ReadLine()) != null)
+                string str = streamReader.ReadLine();
+                for (int index = 0; index < str.Length; ++index)
                 {
-                    if (str1[0] != '!' && str1[1] != '!')
+                    if (str[0] != '!')
                     {
-                        y = str1.Length;
-                        ++x;
+                        length1 = str.Length;
+                        length2 = index + 1;
                     }
                 }
-                streamReader1.Close();
-                this.universe = new bool[y, x];
-                int num = y - 1;
-                int index1 = 0;
-                StreamReader streamReader2 = new StreamReader(openFileDialog.FileName);
-                string str2;
-                while ((str2 = streamReader2.ReadLine()) != null)
-                {
-                    if (str2[0] != '!')
-                    {
-                        for (int index2 = 0; index2 < num; ++index2)
-                        {
-                            if (str2[index2] == '.')
-                                this.universe[index2, index1] = true;
-                            else if (str2[index2] == 'O')
-                                this.universe[index2, index1] = true;
-                        }
-                        ++index1;
-                    }
-                }
-                streamReader2.Close();
             }
-            this.countLivingCells();
+            this.universe = new bool[length1, length2];
+            this.scratchPad = new bool[length1, length2];
+            this.Blank = new bool[length1, length2];
+            this.faded = new bool[length1, length2];
+            int index1 = 0;
+            streamReader.BaseStream.Seek(0L, SeekOrigin.Begin);
+            while (!streamReader.EndOfStream)
+            {
+                string str = streamReader.ReadLine();
+                if (str[0] != '!')
+                {
+                    for (int index2 = 0; index2 < str.Length; ++index2)
+                        this.universe[index2, index1] = str[index2] == '@';
+                    ++index1;
+                }
+            }
             this.graphicsPanel1.Invalidate();
+            streamReader.Close();
         }
 
 
@@ -619,12 +649,12 @@ namespace GameofLife_BrandonYates
         private void gridAndTimeButton_Click(object sender, EventArgs e)
         {
             GridTimeForm gridTime = new GridTimeForm();
-            gridTime.SetTime(this.timer.Interval);
-            gridTime.SetGridWidth(this.universe.GetLength(1));
-            gridTime.SetGridHeight(this.universe.GetLength(0));
+            //gridTime.SetTime(this.timer.Interval);
+            //gridTime.SetGridWidth(this.universe.GetLength(1));
+            //gridTime.SetGridHeight(this.universe.GetLength(0));
             if (DialogResult.OK == gridTime.ShowDialog())
             {
-                this.timer.Interval = gridTime.GetTime();
+                //this.timer.Interval = gridTime.GetTime();
                 this.universe = new bool[gridTime.GetGridWidth, gridTime.GetGridHeight];
             }
             graphicsPanel1.Invalidate();
@@ -636,22 +666,41 @@ namespace GameofLife_BrandonYates
         #region Neighbor Counting
         private void neighborCountToggle_Click(object sender, EventArgs e)
         {
-            //Font font = new Font("Arial", 20f);
-
-            //StringFormat stringFormat = new StringFormat();
-            //stringFormat.Alignment = StringAlignment.Center;
-            //stringFormat.LineAlignment = StringAlignment.Center;
-
-            //Rectangle rect = new Rectangle(0, 0, 100, 100);
-            //int neighbors = 8;
-
-            //e.Graphics.DrawString(neighbors.ToString(), font, Brushes.Black, rect, stringFormat);
+            if (neighborCountToggle.Checked)
+            {
+                CounterVisible = true;
+            }
+            else
+            {
+                CounterVisible = false;
+            }
         }
         #endregion
 
+        public string PackMode() => !this.PacLike ? "Finite" : "Toroidal";
+
         private void hUDToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //Font font = new Font("Arial", 12.5f);
+            //StringFormat format = new StringFormat();
+            //format.Alignment = StringAlignment.Near;
+            //format.LineAlignment = StringAlignment.Near;
+            //Rectangle layoutRectangle = new Rectangle(0, 0, 300, 200);
+            //string str = string.Format("Generations: {0}\nCell Count: {1}\nBoundary Type: {2}\nUniverse Size: {3}/{4}", (object)this.generations, (object)Form1.Xset, (object)Form1.Yset);
+            //e.Graphics.DrawString(str.ToString(), font, Brushes.Blue, (RectangleF)layoutRectangle, format);
             //this.golControl1.HUDVisible = !this.golControl1.HUDVisible;
+        }
+
+        private void finiteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.PacLike = true;
+            this.graphicsPanel1.Invalidate();
+        }
+
+        private void toroidalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.PacLike = false;
+            this.graphicsPanel1.Invalidate();
         }
     }
 }

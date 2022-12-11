@@ -13,7 +13,7 @@ namespace GameofLife_BrandonYates
 {
     public partial class GridTimeForm : Form
     {
-
+       
         private NumericUpDown timer;
         private NumericUpDown width;
         private NumericUpDown height;
@@ -31,8 +31,8 @@ namespace GameofLife_BrandonYates
 
         #region Time
         //creates the getter and setter for time change 
-        public int GetTime() => (int)this.timer.Value;
-        public void SetTime(int time) => this.timer.Value = (Decimal)time;
+        //public int GetTime() => (int)this.timer.Value;
+        //public void SetTime(int time) => this.timer.Value = (Decimal)time;
         #endregion
           
         #region Grid Size
