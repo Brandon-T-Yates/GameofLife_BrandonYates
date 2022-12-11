@@ -206,7 +206,9 @@
             // 
             // hUDToolStripMenuItem
             // 
+            this.hUDToolStripMenuItem.Checked = true;
             this.hUDToolStripMenuItem.CheckOnClick = true;
+            this.hUDToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.hUDToolStripMenuItem.Name = "hUDToolStripMenuItem";
             this.hUDToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.hUDToolStripMenuItem.Text = "HUD";
@@ -214,7 +216,9 @@
             // 
             // gridToggle
             // 
+            this.gridToggle.Checked = true;
             this.gridToggle.CheckOnClick = true;
+            this.gridToggle.CheckState = System.Windows.Forms.CheckState.Checked;
             this.gridToggle.Name = "gridToggle";
             this.gridToggle.Size = new System.Drawing.Size(180, 22);
             this.gridToggle.Text = "Grid";
@@ -222,7 +226,9 @@
             // 
             // neighborCountToggle
             // 
+            this.neighborCountToggle.Checked = true;
             this.neighborCountToggle.CheckOnClick = true;
+            this.neighborCountToggle.CheckState = System.Windows.Forms.CheckState.Checked;
             this.neighborCountToggle.Name = "neighborCountToggle";
             this.neighborCountToggle.Size = new System.Drawing.Size(180, 22);
             this.neighborCountToggle.Text = "Neighbor Count";
