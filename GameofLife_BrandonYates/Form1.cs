@@ -44,6 +44,7 @@ namespace GameofLife_BrandonYates
         int Seed = 5899632;
         bool GridOn = true;
         bool CounterVisible = true;
+        bool HudToggle = true;
         int generations = 0;
         int LivingCells = 0;
 
@@ -180,6 +181,10 @@ namespace GameofLife_BrandonYates
                     if (CounterVisible == true)
                     {
                         e.Graphics.DrawString(CountNeighborsFinite(x, y).ToString(), Font, Brushes.DarkRed,cellRect, stringFormat);
+                    }
+                    if (HudToggle == true)
+                    {
+                        this.PrintHUD(e);
                     }
                 }
             }
@@ -712,19 +717,24 @@ namespace GameofLife_BrandonYates
         }
         #endregion
 
+        public void PrintHUD(PaintEventArgs e)
+        {
+            Font font = new Font("Arial", 12.5f);
+            StringFormat format = new StringFormat();
+            format.Alignment = StringAlignment.Near;
+            format.LineAlignment = StringAlignment.Near;
+            Rectangle layoutRectangle = new Rectangle(0, 0, 300, 200);
+            string str = string.Format("Generations: {0}\nCell Count: {1}\nUniverse Size: {2}/{3}", (object)this.generations, (object)this.UniverseType(), (object)Form1.Xset, (object)Form1.Yset);
+            e.Graphics.DrawString(str.ToString(), font, Brushes.Blue, (RectangleF)layoutRectangle, format);
+        }
 
-        public string PackMode() => !this.PacLike ? "Finite" : "Toroidal";
+
+        public string UniverseType() => !this.PacLike ? "Finite" : "Toroidal";
 
         private void hUDToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //Font font = new Font("Arial", 12.5f);
-            //StringFormat format = new StringFormat();
-            //format.Alignment = StringAlignment.Near;
-            //format.LineAlignment = StringAlignment.Near;
-            //Rectangle layoutRectangle = new Rectangle(0, 0, 300, 200);
-            //string str = string.Format("Generations: {0}\nCell Count: {1}\nBoundary Type: {2}\nUniverse Size: {3}/{4}", (object)this.generations, (object)Form1.Xset, (object)Form1.Yset);
-            //e.Graphics.DrawString(str.ToString(), font, Brushes.Blue, (RectangleF)layoutRectangle, format);
-            //this.golControl1.HUDVisible = !this.golControl1.HUDVisible;
+            this.HudToggle = !this.HudToggle;
+            this.graphicsPanel1.Invalidate();
         }
 
         private void finiteToolStripMenuItem_Click(object sender, EventArgs e)
@@ -744,5 +754,7 @@ namespace GameofLife_BrandonYates
             this.GridOn = !this.GridOn;
             this.graphicsPanel1.Invalidate();
         }
+
+
     }
 }

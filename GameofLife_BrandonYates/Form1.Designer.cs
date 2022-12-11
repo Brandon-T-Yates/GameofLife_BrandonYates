@@ -44,7 +44,11 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hUDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gridToggle = new System.Windows.Forms.ToolStripMenuItem();
             this.neighborCountToggle = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.finiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toroidalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.randomSeed = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,11 +81,7 @@
             this.rightClickGrid = new System.Windows.Forms.ToolStripMenuItem();
             this.rightClickCell = new System.Windows.Forms.ToolStripMenuItem();
             this.rightClickBG = new System.Windows.Forms.ToolStripMenuItem();
-            this.finiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toroidalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.graphicsPanel1 = new GameofLife_BrandonYates.GraphicsPanel();
-            this.gridToggle = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.previousButton.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -206,13 +206,23 @@
             // 
             // hUDToolStripMenuItem
             // 
+            this.hUDToolStripMenuItem.CheckOnClick = true;
             this.hUDToolStripMenuItem.Name = "hUDToolStripMenuItem";
             this.hUDToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.hUDToolStripMenuItem.Text = "HUD";
             this.hUDToolStripMenuItem.Click += new System.EventHandler(this.hUDToolStripMenuItem_Click);
             // 
+            // gridToggle
+            // 
+            this.gridToggle.CheckOnClick = true;
+            this.gridToggle.Name = "gridToggle";
+            this.gridToggle.Size = new System.Drawing.Size(180, 22);
+            this.gridToggle.Text = "Grid";
+            this.gridToggle.Click += new System.EventHandler(this.gridToggle_Click);
+            // 
             // neighborCountToggle
             // 
+            this.neighborCountToggle.CheckOnClick = true;
             this.neighborCountToggle.Name = "neighborCountToggle";
             this.neighborCountToggle.Size = new System.Drawing.Size(180, 22);
             this.neighborCountToggle.Text = "Neighbor Count";
@@ -220,6 +230,26 @@
             this.neighborCountToggle.CheckStateChanged += new System.EventHandler(this.neighborCountToggle_Click);
             this.neighborCountToggle.Click += new System.EventHandler(this.neighborCountToggle_Click);
             this.neighborCountToggle.OwnerChanged += new System.EventHandler(this.neighborCountToggle_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(177, 6);
+            // 
+            // finiteToolStripMenuItem
+            // 
+            this.finiteToolStripMenuItem.Name = "finiteToolStripMenuItem";
+            this.finiteToolStripMenuItem.ShowShortcutKeys = false;
+            this.finiteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.finiteToolStripMenuItem.Text = "Finite";
+            this.finiteToolStripMenuItem.Click += new System.EventHandler(this.finiteToolStripMenuItem_Click);
+            // 
+            // toroidalToolStripMenuItem
+            // 
+            this.toroidalToolStripMenuItem.Name = "toroidalToolStripMenuItem";
+            this.toroidalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.toroidalToolStripMenuItem.Text = "Toroidal";
+            this.toroidalToolStripMenuItem.Click += new System.EventHandler(this.toroidalToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -488,26 +518,6 @@
             this.rightClickBG.Text = "Background Color";
             this.rightClickBG.Click += new System.EventHandler(this.rightClickBG_Click);
             // 
-            // finiteToolStripMenuItem
-            // 
-            this.finiteToolStripMenuItem.Name = "finiteToolStripMenuItem";
-            this.finiteToolStripMenuItem.ShowShortcutKeys = false;
-            this.finiteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.finiteToolStripMenuItem.Text = "Finite";
-            this.finiteToolStripMenuItem.Click += new System.EventHandler(this.finiteToolStripMenuItem_Click);
-            // 
-            // toroidalToolStripMenuItem
-            // 
-            this.toroidalToolStripMenuItem.Name = "toroidalToolStripMenuItem";
-            this.toroidalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.toroidalToolStripMenuItem.Text = "Toroidal";
-            this.toroidalToolStripMenuItem.Click += new System.EventHandler(this.toroidalToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(177, 6);
-            // 
             // graphicsPanel1
             // 
             this.graphicsPanel1.BackColor = System.Drawing.SystemColors.Window;
@@ -519,13 +529,6 @@
             this.graphicsPanel1.TabIndex = 3;
             this.graphicsPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.graphicsPanel1_Paint);
             this.graphicsPanel1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.graphicsPanel1_MouseClick);
-            // 
-            // gridToggle
-            // 
-            this.gridToggle.Name = "gridToggle";
-            this.gridToggle.Size = new System.Drawing.Size(180, 22);
-            this.gridToggle.Text = "Grid";
-            this.gridToggle.Click += new System.EventHandler(this.gridToggle_Click);
             // 
             // Form1
             // 
