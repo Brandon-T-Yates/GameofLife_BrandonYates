@@ -42,6 +42,7 @@ namespace GameofLife_BrandonYates
         #region ints
         // Generation count
         int Seed = 5899632;
+        bool GridOn = true;
         bool CounterVisible = true;
         int generations = 0;
         int LivingCells = 0;
@@ -167,8 +168,10 @@ namespace GameofLife_BrandonYates
                     }
 
                     // Outline the cell with a pen
-                    e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
-
+                    if (GridOn == true)
+                    {
+                        e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
+                    }
                     Font font = new Font("Arial", 7f);
                     StringFormat stringFormat = new StringFormat();
                     stringFormat.Alignment = StringAlignment.Center;
@@ -704,14 +707,8 @@ namespace GameofLife_BrandonYates
         #region Neighbor Counting
         private void neighborCountToggle_Click(object sender, EventArgs e)
         {
-            if (neighborCountToggle.Checked)
-            {
-                CounterVisible = true;
-            }
-            else
-            {
-                CounterVisible = false;
-            }
+            this.CounterVisible = !this.CounterVisible;
+            this.graphicsPanel1.Invalidate();
         }
         #endregion
 
@@ -739,6 +736,12 @@ namespace GameofLife_BrandonYates
         private void toroidalToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.PacLike = false;
+            this.graphicsPanel1.Invalidate();
+        }
+
+        private void gridToggle_Click(object sender, EventArgs e)
+        {
+            this.GridOn = !this.GridOn;
             this.graphicsPanel1.Invalidate();
         }
     }
