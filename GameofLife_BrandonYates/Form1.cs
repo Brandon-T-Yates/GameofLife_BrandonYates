@@ -45,6 +45,10 @@ namespace GameofLife_BrandonYates
         bool CounterVisible = true;
         int generations = 0;
         int LivingCells = 0;
+
+        public void SetX(int x) => Form1.Xset = x;
+
+        public void SetY(int y) => Form1.Yset = y;
         #endregion
 
         #region Form
@@ -78,7 +82,9 @@ namespace GameofLife_BrandonYates
                     if (scratchPad[y, x]) livingCells++;
                 }
             }
+            this.Blank = this.universe;
             this.universe = scratchPad;
+            this.scratchPad = this.Blank;
             // Increment generation count
             generations++;
 
@@ -528,8 +534,6 @@ namespace GameofLife_BrandonYates
             }
             this.universe = new bool[length1, length2];
             this.scratchPad = new bool[length1, length2];
-            this.Blank = new bool[length1, length2];
-            this.faded = new bool[length1, length2];
             int index1 = 0;
             streamReader.BaseStream.Seek(0L, SeekOrigin.Begin);
             while (!streamReader.EndOfStream)
@@ -571,14 +575,12 @@ namespace GameofLife_BrandonYates
         private void randomSeed_Click(object sender, EventArgs e)
         {
             RandomSeed setSeed = new RandomSeed();
-            setSeed.SetSeedMenu(this.Seed);
+            setSeed.SetSeed(this.Seed);
             if (DialogResult.OK != setSeed.ShowDialog())
                 return;
-            this.Seed = setSeed.GetSeedMenu();
+            this.Seed = setSeed.GetSeed();
             this.Randomize(this.Seed);
-            //RandomSeed dlg = new RandomSeed();
-
-            //dlg.ShowDialog();
+            this.graphicsPanel1.Invalidate();
         }
         private void Randomize(int Seed)
         {
@@ -668,16 +670,32 @@ namespace GameofLife_BrandonYates
         #region Grid & Time Change
         private void gridAndTimeButton_Click(object sender, EventArgs e)
         {
+            int xset = Form1.Xset;
+            int yset = Form1.Yset;
             GridTimeForm gridTime = new GridTimeForm();
             gridTime.SetTime(this.timer.Interval);
-            gridTime.SetGridWidth(this.universe.GetLength(1));
-            gridTime.SetGridHeight(this.universe.GetLength(0));
+            gridTime.SetGridWidth(Form1.Xset);
+            gridTime.SetGridHeight(Form1.Yset);
             if (DialogResult.OK == gridTime.ShowDialog())
             {
-                this.timer.Interval = gridTime.GetTime();
-                this.universe = new bool[gridTime.GetGridWidth, gridTime.GetGridHeight];
+                return;
+                //this.timer.Interval = gridTime.GetTime();
+                //this.universe = new bool[gridTime.GetGridWidth(), gridTime.GetGridHeight()];
             }
-            graphicsPanel1.Invalidate();
+            this.timer.Interval = gridTime.GetTime();
+            this.SetY(gridTime.GetGridHeight());
+            this.SetX(gridTime.GetGridWidth());
+            if (xset != Form1.Xset || yset != Form1.Yset)
+            {
+                this.timer.Enabled = false;
+                this.universe = new bool[gridTime.GetGridWidth(), gridTime.GetGridHeight()];
+                this.scratchPad = new bool[gridTime.GetGridWidth(), gridTime.GetGridHeight()];
+                this.Blank = new bool[gridTime.GetGridWidth(), gridTime.GetGridHeight()];
+                this.faded = new bool[gridTime.GetGridWidth(), gridTime.GetGridHeight()];
+                this.timer.Enabled = false;
+                this.generations = -1;
+                this.NextGeneration();
+            } 
         }
 
 

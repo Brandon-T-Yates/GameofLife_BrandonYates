@@ -99,6 +99,7 @@
             0,
             0,
             0});
+            //this.timerChange.ValueChanged += new System.EventHandler(this.timerChange_ValueChanged);
             // 
             // widthChange
             // 

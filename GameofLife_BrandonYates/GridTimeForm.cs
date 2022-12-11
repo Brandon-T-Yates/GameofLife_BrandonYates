@@ -36,9 +36,9 @@ namespace GameofLife_BrandonYates
         #endregion
 
         #region Grid Size
-        public int GetGridWidth => (int)this.width.Value;
+        public int GetGridWidth() => (int)this.width.Value;
         public void SetGridWidth(int widthV) => this.width.Value = (Decimal) widthV;
-        public int GetGridHeight => (int)this.height.Value;
+        public int GetGridHeight() => (int)this.height.Value;
         public void SetGridHeight(int heightV) => this.height.Value = (Decimal)heightV;
         #endregion
 
