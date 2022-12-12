@@ -195,7 +195,7 @@ namespace GameofLife_BrandonYates
         }
         #endregion
 
-        #region Turning Cells
+        #region Graphics Panel
         private void graphicsPanel1_MouseClick(object sender, MouseEventArgs e)
         {
             // If the left mouse button was clicked
@@ -508,11 +508,11 @@ namespace GameofLife_BrandonYates
                 return;
             StreamWriter streamWriter = new StreamWriter(saveFileDialog.FileName);
             streamWriter.WriteLine(string.Format("!{0}", (object)DateTime.Now));
-            for (int index1 = 0; index1 < this.universe.GetLength(1); ++index1)
+            for (int x = 0; x < this.universe.GetLength(1); ++x)
             {
                 string str = string.Empty;
-                for (int index2 = 0; index2 < this.universe.GetLength(0); ++index2)
-                    str = !this.universe[index2, index1] ? str + "O" : str + "@";
+                for (int y = 0; y < this.universe.GetLength(0); ++y)
+                    str = !this.universe[y, x] ? str + "O" : str + "@";
                 streamWriter.WriteLine(str);
             }
             streamWriter.Close();
@@ -529,11 +529,11 @@ namespace GameofLife_BrandonYates
                 return;
             StreamWriter streamWriter = new StreamWriter(saveFileDialog.FileName);
             streamWriter.WriteLine(string.Format("!{0}", (object)DateTime.Now));
-            for (int index1 = 0; index1 < this.universe.GetLength(1); ++index1)
+            for (int x = 0; x < this.universe.GetLength(1); ++x)
             {
                 string str = string.Empty;
-                for (int index2 = 0; index2 < this.universe.GetLength(0); ++index2)
-                    str = !this.universe[index2, index1] ? str + "O" : str + "@";
+                for (int y = 0; y < this.universe.GetLength(0); ++y)
+                    str = !this.universe[y, x] ? str + "O" : str + "@";
                 streamWriter.WriteLine(str);
             }
             streamWriter.Close();
@@ -556,12 +556,12 @@ namespace GameofLife_BrandonYates
             while (!streamReader.EndOfStream)
             {
                 string str = streamReader.ReadLine();
-                for (int index = 0; index < str.Length; ++index)
+                for (int x = 0; x < str.Length; ++x)
                 {
                     if (str[0] != '!')
                     {
                         length1 = str.Length;
-                        length2 = index + 1;
+                        length2 = x + 1;
                     }
                 }
             }
@@ -574,8 +574,8 @@ namespace GameofLife_BrandonYates
                 string str = streamReader.ReadLine();
                 if (str[0] != '!')
                 {
-                    for (int index2 = 0; index2 < str.Length; ++index2)
-                        this.universe[index2, index1] = str[index2] == '@';
+                    for (int y = 0; y < str.Length; ++y)
+                        this.universe[y, index1] = str[y] == '@';
                     ++index1;
                 }
             }
@@ -661,12 +661,12 @@ namespace GameofLife_BrandonYates
         {
             // Randomly generates a seed number on the random button
             Random randSeed = new Random(Seed);
-            for (int index1 = 0; index1 < this.universe.GetLength(1); ++index1)
+            for (int x = 0; x < this.universe.GetLength(1); ++x)
             {
-                for (int index2 = 0; index2 < this.universe.GetLength(0); ++index2)
+                for (int y = 0; y < this.universe.GetLength(0); ++y)
                 {
                     if (randSeed.Next(2) > 0)
-                        this.universe[index2, index1] = true;
+                        this.universe[y, x] = true;
                 }
             }
             this.graphicsPanel1.Invalidate();
