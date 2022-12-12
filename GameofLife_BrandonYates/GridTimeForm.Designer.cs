@@ -99,12 +99,11 @@
             0,
             0,
             0});
-            //this.timerChange.ValueChanged += new System.EventHandler(this.timerChange_ValueChanged);
             // 
             // widthChange
             // 
             this.widthChange.AccessibleDescription = "Used to change the cell with on the grid";
-            this.widthChange.AccessibleName = "Cell Width Changer";
+            this.widthChange.AccessibleName = "";
             this.widthChange.Increment = new decimal(new int[] {
             5,
             0,

@@ -780,28 +780,20 @@ namespace GameofLife_BrandonYates
             int xset = Form1.Xset;
             int yset = Form1.Yset;
             GridTimeForm gridTime = new GridTimeForm();
-            gridTime.SetTime(this.timer.Interval);
-            gridTime.SetGridWidth(Form1.Xset);
-            gridTime.SetGridHeight(Form1.Yset);
+            gridTime.Timer = timer.Interval;
+            gridTime.Width = Form1.Xset;
+            gridTime.Height = Form1.Yset;
             if (DialogResult.OK == gridTime.ShowDialog())
             {
-                return;
+                bool[,] temp = new bool[gridTime.Width, gridTime.Height];
+                bool[,] temp2 = new bool[gridTime.Width, gridTime.Height];
+                scratchPad = temp;
+                universe = temp2;
+                xset = gridTime.Width;
+                yset = gridTime.Height;
+                timer.Interval = gridTime.Timer;
+                graphicsPanel1.Invalidate();
             }
-            this.timer.Interval = gridTime.GetTime();
-            this.SetY(gridTime.GetGridHeight());
-            this.SetX(gridTime.GetGridWidth());
-            //Used to impliment user grid height, width, and time input
-            if (xset != Form1.Xset || yset != Form1.Yset)
-            {
-                this.timer.Enabled = false;
-                this.universe = new bool[gridTime.GetGridWidth(), gridTime.GetGridHeight()];
-                this.scratchPad = new bool[gridTime.GetGridWidth(), gridTime.GetGridHeight()];
-                this.Blank = new bool[gridTime.GetGridWidth(), gridTime.GetGridHeight()];
-                this.faded = new bool[gridTime.GetGridWidth(), gridTime.GetGridHeight()];
-                this.timer.Enabled = false;
-                this.generations = -1;
-                this.NextGeneration();
-            } 
         }
         #endregion
 
