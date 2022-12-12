@@ -424,6 +424,8 @@ namespace GameofLife_BrandonYates
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             // Auto saves color when clicking the X on the window
+            Properties.Settings.Default.PanelColor = gridColor;
+            Properties.Settings.Default.PanelColor = cellColor;
             Properties.Settings.Default.PanelColor = graphicsPanel1.BackColor;
             Properties.Settings.Default.Save();
         }
@@ -784,14 +786,14 @@ namespace GameofLife_BrandonYates
             StringFormat format = new StringFormat();
             format.Alignment = StringAlignment.Near;
             format.LineAlignment = StringAlignment.Near;
-            Rectangle layoutRectangle = new Rectangle(0, 340, 300, 200);
-            string str = string.Format("Generations: {0}\nCell Count: {1}\nUniverse Size: {2}/{3}", (object)this.generations, this.LivingCells, (object)Form1.Xset, (object)Form1.Yset);
+            Rectangle layoutRectangle = new Rectangle(0, 320, 300, 200);
+            string str = string.Format("Generations: {0}\nCell Count: {1}\nBoundary Type: {2}\nUniverse Size: {3}/{4}", (object)this.generations, this.LivingCells, (object)this.UniverseType(), (object)Form1.Xset, (object)Form1.Yset);
             e.Graphics.DrawString(str.ToString(), font, Brushes.Orange, (RectangleF)layoutRectangle, format);
         }
         #endregion
 
         #region Universe Type
-        public string UniverseType() => !this.PackType ? "Finite" : "Toroidal";
+        public string UniverseType() => !this.PackType ? "Toroidal" : "Finite";
         #endregion
 
         #region HUD Toggle
