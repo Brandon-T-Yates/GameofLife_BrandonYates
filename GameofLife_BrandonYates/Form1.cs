@@ -376,8 +376,8 @@ namespace GameofLife_BrandonYates
         private void pauseButton_Click(object sender, EventArgs e)
         {
             //Pauses the generation count
-            this.countLivingCells();
             this.timer.Enabled = false;
+            this.countLivingCells();
         }
         #endregion
          
@@ -499,6 +499,7 @@ namespace GameofLife_BrandonYates
         #region Save File
         private void saveButton_Click(object sender, EventArgs e)
         {
+            // Used to save the cell patterns
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "All Files|*.*|Cells|*.cells";
             saveFileDialog.FilterIndex = 2;
@@ -519,6 +520,7 @@ namespace GameofLife_BrandonYates
 
         private void fileSave_Click(object sender, EventArgs e)
         {
+            // Used to save the cell patterns
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "All Files|*.*|Cells|*.cells";
             saveFileDialog.FilterIndex = 2;
@@ -542,6 +544,7 @@ namespace GameofLife_BrandonYates
         #region Open File
         private void openButton_Click(object sender, EventArgs e)
         {
+            // Used to open a .cell file and display the cell pattern that was saved
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "All Files|*.*|Cells|*.cells";
             openFileDialog.FilterIndex = 2;
@@ -582,6 +585,7 @@ namespace GameofLife_BrandonYates
 
         private void fileOpen_Click(object sender, EventArgs e)
         {
+            // Used to open a .cell file and display the cell pattern that was saved
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "All Files|*.*|Cells|*.cells";
             openFileDialog.FilterIndex = 2;
@@ -644,6 +648,7 @@ namespace GameofLife_BrandonYates
         #region Random Seed
         private void randomSeed_Click(object sender, EventArgs e)
         {
+            // Generates the RandomSeed Dialog box and gets and sets values
             RandomSeed setSeed = new RandomSeed();
             setSeed.SetSeed(this.Seed);
             if (DialogResult.OK != setSeed.ShowDialog())
@@ -654,13 +659,13 @@ namespace GameofLife_BrandonYates
         }
         private void Randomize(int Seed)
         {
-            Random random1 = new Random(Seed);
-            Random random2 = new Random(Seed);
+            // Randomly generates a seed number on the random button
+            Random randSeed = new Random(Seed);
             for (int index1 = 0; index1 < this.universe.GetLength(1); ++index1)
             {
                 for (int index2 = 0; index2 < this.universe.GetLength(0); ++index2)
                 {
-                    if (random2.Next(2) > 0)
+                    if (randSeed.Next(2) > 0)
                         this.universe[index2, index1] = true;
                 }
             }
@@ -740,6 +745,7 @@ namespace GameofLife_BrandonYates
         #region Grid & Time Change
         private void gridAndTimeButton_Click(object sender, EventArgs e)
         {
+            //Used to get user grid height, width, and time input
             int xset = Form1.Xset;
             int yset = Form1.Yset;
             GridTimeForm gridTime = new GridTimeForm();
@@ -749,12 +755,11 @@ namespace GameofLife_BrandonYates
             if (DialogResult.OK == gridTime.ShowDialog())
             {
                 return;
-                //this.timer.Interval = gridTime.GetTime();
-                //this.universe = new bool[gridTime.GetGridWidth(), gridTime.GetGridHeight()];
             }
             this.timer.Interval = gridTime.GetTime();
             this.SetY(gridTime.GetGridHeight());
             this.SetX(gridTime.GetGridWidth());
+            //Used to impliment user grid height, width, and time input
             if (xset != Form1.Xset || yset != Form1.Yset)
             {
                 this.timer.Enabled = false;
@@ -767,13 +772,12 @@ namespace GameofLife_BrandonYates
                 this.NextGeneration();
             } 
         }
-
-
         #endregion
 
         #region Neighbor Counting
         private void neighborCountToggle_Click(object sender, EventArgs e)
         {
+            // Toggle On/Off Neighbor Counts
             this.CounterVisible = !this.CounterVisible;
             this.graphicsPanel1.Invalidate();
         }
@@ -782,23 +786,26 @@ namespace GameofLife_BrandonYates
         #region Print HUD
         public void PrintHUD(PaintEventArgs e)
         {
-            Font font = new Font("Arial", 12.5f);
+            // Sets up the HUD Display with formatting and strings
+            Font hud = new Font("Arial", 12.5f);
             StringFormat format = new StringFormat();
             format.Alignment = StringAlignment.Near;
             format.LineAlignment = StringAlignment.Near;
             Rectangle layoutRectangle = new Rectangle(0, 320, 300, 200);
-            string str = string.Format("Generations: {0}\nCell Count: {1}\nBoundary Type: {2}\nUniverse Size: {3}/{4}", (object)this.generations, this.LivingCells, (object)this.UniverseType(), (object)Form1.Xset, (object)Form1.Yset);
-            e.Graphics.DrawString(str.ToString(), font, Brushes.Orange, (RectangleF)layoutRectangle, format);
+            string hudDisplay = string.Format("Generations: {0}\nCell Count: {1}\nBoundary Type: {2}\nUniverse Size: {3}/{4}", (object)this.generations, this.LivingCells, (object)this.UniverseType(), (object)Form1.Xset, (object)Form1.Yset);
+            e.Graphics.DrawString(hudDisplay.ToString(), hud, Brushes.Orange, (RectangleF)layoutRectangle, format);
         }
         #endregion
 
         #region Universe Type
+        // Tells the HUD which universe to display
         public string UniverseType() => !this.PackType ? "Toroidal" : "Finite";
         #endregion
 
         #region HUD Toggle
         private void hUDToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // Toggles On/Off HUD on Grid
             this.HudToggle = !this.HudToggle;
             this.graphicsPanel1.Invalidate();
         }
@@ -807,6 +814,7 @@ namespace GameofLife_BrandonYates
         #region Finite Toggle
         private void finiteToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // Toggles On/Off Finite Universe
             this.PackType = true;
             this.graphicsPanel1.Invalidate();
         }
@@ -815,6 +823,7 @@ namespace GameofLife_BrandonYates
         #region Toroidal Toggle
         private void toroidalToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // Toggles On/Off Toroidal Universe
             this.PackType = false;
             this.graphicsPanel1.Invalidate();
         }
@@ -823,6 +832,7 @@ namespace GameofLife_BrandonYates
         #region Grid Toggle
         private void gridToggle_Click(object sender, EventArgs e)
         {
+            // Toggles On/Off Grid
             this.GridOn = !this.GridOn;
             this.graphicsPanel1.Invalidate();
         }
