@@ -276,7 +276,7 @@ namespace GameofLife_BrandonYates
             {
                 for (int i = 0; i < universe.GetLength(1); i++)
                 {
-                    if (scratched)
+                    if (PacLike == true)
                     {
                     //    if ((CountNeighborsToroidal(x, i) < 2) && universe[x, i])
                     //    {
@@ -286,11 +286,11 @@ namespace GameofLife_BrandonYates
                     //    {
                     //        scratchPad[x, i] = false;
                     //    }
-                    //    else if ((CountNeighborsToroidal(x, i) == 2 || CountNeighborsToroidal(x,i) == 3)&& universe[x, i])
+                    //    else if ((CountNeighborsToroidal(x, i) == 2 || CountNeighborsToroidal(x, i) == 3) && universe[x, i])
                     //    {
                     //        scratchPad[x, i] = true;
                     //    }
-                    //    else if ((CountNeighborsToroidal(x,i) == 3)&& universe[x,i] == false)
+                    //    else if ((CountNeighborsToroidal(x, i) == 3) && universe[x, i] == false)
                     //    {
                     //        scratchPad[x, i] = true;
                     //    }
@@ -515,10 +515,70 @@ namespace GameofLife_BrandonYates
             streamWriter.Close();
         }
 
+        private void fileSave_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "All Files|*.*|Cells|*.cells";
+            saveFileDialog.FilterIndex = 2;
+            saveFileDialog.DefaultExt = "cells";
+            if (DialogResult.OK != saveFileDialog.ShowDialog())
+                return;
+            StreamWriter streamWriter = new StreamWriter(saveFileDialog.FileName);
+            streamWriter.WriteLine(string.Format("!{0}", (object)DateTime.Now));
+            for (int index1 = 0; index1 < this.universe.GetLength(1); ++index1)
+            {
+                string str = string.Empty;
+                for (int index2 = 0; index2 < this.universe.GetLength(0); ++index2)
+                    str = !this.universe[index2, index1] ? str + "O" : str + "@";
+                streamWriter.WriteLine(str);
+            }
+            streamWriter.Close();
+        }
+
         #endregion
 
         #region Open File
         private void openButton_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "All Files|*.*|Cells|*.cells";
+            openFileDialog.FilterIndex = 2;
+            if (DialogResult.OK != openFileDialog.ShowDialog())
+                return;
+            StreamReader streamReader = new StreamReader(openFileDialog.FileName);
+            int length1 = 0;
+            int length2 = 0;
+            while (!streamReader.EndOfStream)
+            {
+                string str = streamReader.ReadLine();
+                for (int index = 0; index < str.Length; ++index)
+                {
+                    if (str[0] != '!')
+                    {
+                        length1 = str.Length;
+                        length2 = index + 1;
+                    }
+                }
+            }
+            this.universe = new bool[length1, length2];
+            this.scratchPad = new bool[length1, length2];
+            int index1 = 0;
+            streamReader.BaseStream.Seek(0L, SeekOrigin.Begin);
+            while (!streamReader.EndOfStream)
+            {
+                string str = streamReader.ReadLine();
+                if (str[0] != '!')
+                {
+                    for (int index2 = 0; index2 < str.Length; ++index2)
+                        this.universe[index2, index1] = str[index2] == '@';
+                    ++index1;
+                }
+            }
+            this.graphicsPanel1.Invalidate();
+            streamReader.Close();
+        }
+
+        private void fileOpen_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "All Files|*.*|Cells|*.cells";
@@ -717,44 +777,55 @@ namespace GameofLife_BrandonYates
         }
         #endregion
 
+        #region Print HUD
         public void PrintHUD(PaintEventArgs e)
         {
             Font font = new Font("Arial", 12.5f);
             StringFormat format = new StringFormat();
             format.Alignment = StringAlignment.Near;
             format.LineAlignment = StringAlignment.Near;
-            Rectangle layoutRectangle = new Rectangle(0, 0, 300, 200);
-            string str = string.Format("Generations: {0}\nCell Count: {1}\nUniverse Size: {2}/{3}", (object)this.generations, (object)this.UniverseType(), (object)Form1.Xset, (object)Form1.Yset);
-            e.Graphics.DrawString(str.ToString(), font, Brushes.Blue, (RectangleF)layoutRectangle, format);
+            Rectangle layoutRectangle = new Rectangle(0, 340, 300, 200);
+            string str = string.Format("Generations: {0}\nCell Count: {1}\nUniverse Size: {2}/{3}", (object)this.generations, this.LivingCells, (object)Form1.Xset, (object)Form1.Yset);
+            e.Graphics.DrawString(str.ToString(), font, Brushes.Orange, (RectangleF)layoutRectangle, format);
         }
+        #endregion
 
-
+        #region Universe Type
         public string UniverseType() => !this.PacLike ? "Finite" : "Toroidal";
+        #endregion
 
+        #region HUD Toggle
         private void hUDToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.HudToggle = !this.HudToggle;
             this.graphicsPanel1.Invalidate();
         }
+        #endregion
 
+        #region Finite Toggle
         private void finiteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.PacLike = true;
             this.graphicsPanel1.Invalidate();
         }
+        #endregion
 
+        #region Toroidal Toggle
         private void toroidalToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.PacLike = false;
             this.graphicsPanel1.Invalidate();
         }
+        #endregion
 
+        #region Grid Toggle
         private void gridToggle_Click(object sender, EventArgs e)
         {
             this.GridOn = !this.GridOn;
             this.graphicsPanel1.Invalidate();
         }
 
+        #endregion
 
     }
 }
