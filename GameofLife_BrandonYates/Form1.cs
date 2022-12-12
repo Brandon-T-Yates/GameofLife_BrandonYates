@@ -34,7 +34,6 @@ namespace GameofLife_BrandonYates
         #region Timer
         // The Timer class
         Timer timer = new Timer();
-        
         #endregion
 
         #region Ints & Bools
@@ -776,20 +775,18 @@ namespace GameofLife_BrandonYates
         private void gridAndTimeButton_Click(object sender, EventArgs e)
         {
             //Used to get user grid height, width, and time input
-            int xset = Form1.Xset;
-            int yset = Form1.Yset;
             GridTimeForm gridTime = new GridTimeForm();
             gridTime.Timer = timer.Interval;
-            gridTime.Width = Form1.Xset;
-            gridTime.Height = Form1.Yset;
+            gridTime.Width = Xset;
+            gridTime.Height = Yset;
             if (DialogResult.OK == gridTime.ShowDialog())
             {
                 bool[,] temp = new bool[gridTime.Width, gridTime.Height];
                 bool[,] temp2 = new bool[gridTime.Width, gridTime.Height];
                 scratchPad = temp;
                 universe = temp2;
-                xset = gridTime.Width;
-                yset = gridTime.Height;
+                Xset = gridTime.Width;
+                Yset = gridTime.Height;
                 timer.Interval = gridTime.Timer;
                 graphicsPanel1.Invalidate();
             }
@@ -814,7 +811,7 @@ namespace GameofLife_BrandonYates
             format.Alignment = StringAlignment.Near;
             format.LineAlignment = StringAlignment.Near;
             Rectangle layoutRectangle = new Rectangle(0, 320, 300, 200);
-            string hudDisplay = string.Format("Generations: {0}\nCell Count: {1}\nBoundary Type: {2}\nUniverse Size: {3}/{4}", (object)this.generations, this.LivingCells, (object)this.UniverseType(), (object)Form1.Xset, (object)Form1.Yset);
+            string hudDisplay = string.Format("Generations: {0}\nCell Count: {1}\nBoundary Type: {2}\nUniverse Size: {3}/{4}", (object)this.generations, this.LivingCells, (object)this.UniverseType(), (object)Xset, (object)Yset);
             e.Graphics.DrawString(hudDisplay.ToString(), hud, Brushes.Orange, (RectangleF)layoutRectangle, format);
         }
         #endregion
