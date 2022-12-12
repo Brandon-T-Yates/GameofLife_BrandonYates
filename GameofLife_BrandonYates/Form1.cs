@@ -39,7 +39,7 @@ namespace GameofLife_BrandonYates
         Timer timer = new Timer();
         #endregion
 
-        #region ints
+        #region Ints & Bools
         // Generation count
         int Seed = 5899632;
         bool GridOn = true;
@@ -266,7 +266,7 @@ namespace GameofLife_BrandonYates
         }
         #endregion
 
-        #region Finite & T
+        #region Checker
         private void Checker()
         {
             //The ruling for how the cells are supposed to act under Finite grid
