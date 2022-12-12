@@ -39,6 +39,5 @@ namespace GameofLife_BrandonYates
             set { timerChange.Value = value; }
         }
         #endregion
-  
     }
 }

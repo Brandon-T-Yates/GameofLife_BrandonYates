@@ -21,8 +21,6 @@ namespace GameofLife_BrandonYates
         static int Xset = 20;
         bool[,] universe = new bool[Form1.Xset, Form1.Yset];
         bool[,] scratchPad = new bool[Form1.Xset, Form1.Yset];
-        bool[,] faded = new bool[Form1.Xset, Form1.Yset];
-        bool[,] Blank = new bool[Form1.Xset, Form1.Yset];
         bool PackType = true;
         #endregion
 
@@ -36,6 +34,7 @@ namespace GameofLife_BrandonYates
         #region Timer
         // The Timer class
         Timer timer = new Timer();
+        
         #endregion
 
         #region Ints & Bools
@@ -839,6 +838,7 @@ namespace GameofLife_BrandonYates
         {
             //Toggles On/ Off Finite Universe
             border = true;
+            PackType = true;
             finiteToolStripMenuItem.Checked = true;
             toroidalToolStripMenuItem.Checked = false;
             graphicsPanel1.Invalidate();
@@ -850,6 +850,7 @@ namespace GameofLife_BrandonYates
         {
             //Toggles On/ Off Toroidal Universe
             border = false;
+            PackType = false;
             finiteToolStripMenuItem.Checked = false;
             toroidalToolStripMenuItem.Checked = true;
             graphicsPanel1.Invalidate();
