@@ -210,6 +210,7 @@
             // 
             // finiteModeButton
             // 
+            this.finiteModeButton.CheckOnClick = true;
             this.finiteModeButton.Name = "finiteModeButton";
             this.finiteModeButton.ShowShortcutKeys = false;
             this.finiteModeButton.Size = new System.Drawing.Size(180, 22);
@@ -218,6 +219,7 @@
             // 
             // toroidalModeButton
             // 
+            this.toroidalModeButton.CheckOnClick = true;
             this.toroidalModeButton.Name = "toroidalModeButton";
             this.toroidalModeButton.Size = new System.Drawing.Size(180, 22);
             this.toroidalModeButton.Text = "Toroidal";
