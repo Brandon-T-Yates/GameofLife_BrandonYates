@@ -116,7 +116,7 @@
             this.fileNew.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.fileNew.Name = "fileNew";
             this.fileNew.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.fileNew.Size = new System.Drawing.Size(180, 22);
+            this.fileNew.Size = new System.Drawing.Size(146, 22);
             this.fileNew.Text = "&New";
             this.fileNew.Click += new System.EventHandler(this.fileNew_Click);
             // 
@@ -126,14 +126,14 @@
             this.fileOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.fileOpen.Name = "fileOpen";
             this.fileOpen.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.fileOpen.Size = new System.Drawing.Size(180, 22);
+            this.fileOpen.Size = new System.Drawing.Size(146, 22);
             this.fileOpen.Text = "&Open";
             this.fileOpen.Click += new System.EventHandler(this.fileOpen_Click);
             // 
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator.Size = new System.Drawing.Size(143, 6);
             // 
             // fileSave
             // 
@@ -141,19 +141,19 @@
             this.fileSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.fileSave.Name = "fileSave";
             this.fileSave.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.fileSave.Size = new System.Drawing.Size(180, 22);
+            this.fileSave.Size = new System.Drawing.Size(146, 22);
             this.fileSave.Text = "&Save";
             this.fileSave.Click += new System.EventHandler(this.fileSave_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(143, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -176,7 +176,7 @@
             this.hUDToolStripMenuItem.CheckOnClick = true;
             this.hUDToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.hUDToolStripMenuItem.Name = "hUDToolStripMenuItem";
-            this.hUDToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.hUDToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.hUDToolStripMenuItem.Text = "HUD";
             this.hUDToolStripMenuItem.Click += new System.EventHandler(this.hUDToolStripMenuItem_Click);
             // 
@@ -186,7 +186,7 @@
             this.gridToggle.CheckOnClick = true;
             this.gridToggle.CheckState = System.Windows.Forms.CheckState.Checked;
             this.gridToggle.Name = "gridToggle";
-            this.gridToggle.Size = new System.Drawing.Size(180, 22);
+            this.gridToggle.Size = new System.Drawing.Size(160, 22);
             this.gridToggle.Text = "Grid";
             this.gridToggle.Click += new System.EventHandler(this.gridToggle_Click);
             // 
@@ -196,7 +196,7 @@
             this.neighborCountToggle.CheckOnClick = true;
             this.neighborCountToggle.CheckState = System.Windows.Forms.CheckState.Checked;
             this.neighborCountToggle.Name = "neighborCountToggle";
-            this.neighborCountToggle.Size = new System.Drawing.Size(180, 22);
+            this.neighborCountToggle.Size = new System.Drawing.Size(160, 22);
             this.neighborCountToggle.Text = "Neighbor Count";
             this.neighborCountToggle.CheckedChanged += new System.EventHandler(this.neighborCountToggle_Click);
             this.neighborCountToggle.CheckStateChanged += new System.EventHandler(this.neighborCountToggle_Click);
@@ -206,7 +206,7 @@
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(157, 6);
             // 
             // finiteToolStripMenuItem
             // 
@@ -215,7 +215,7 @@
             this.finiteToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.finiteToolStripMenuItem.Name = "finiteToolStripMenuItem";
             this.finiteToolStripMenuItem.ShowShortcutKeys = false;
-            this.finiteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.finiteToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.finiteToolStripMenuItem.Text = "Finite";
             this.finiteToolStripMenuItem.Click += new System.EventHandler(this.finiteToolStripMenuItem_Click);
             // 
@@ -223,7 +223,7 @@
             // 
             this.toroidalToolStripMenuItem.CheckOnClick = true;
             this.toroidalToolStripMenuItem.Name = "toroidalToolStripMenuItem";
-            this.toroidalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.toroidalToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.toroidalToolStripMenuItem.Text = "Toroidal";
             this.toroidalToolStripMenuItem.Click += new System.EventHandler(this.toroidalToolStripMenuItem_Click);
             // 
