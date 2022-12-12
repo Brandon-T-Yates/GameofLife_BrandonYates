@@ -13,10 +13,11 @@ namespace GameofLife_BrandonYates
 {
     public partial class GridTimeForm : Form
     {
-       
+        #region NumericUpDown
         private NumericUpDown timer;
         private NumericUpDown width;
         private NumericUpDown height;
+        #endregion
 
         #region Initialize Form
         public GridTimeForm()

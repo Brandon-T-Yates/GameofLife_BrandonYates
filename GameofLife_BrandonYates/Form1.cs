@@ -24,7 +24,7 @@ namespace GameofLife_BrandonYates
         bool[,] faded = new bool[Form1.Xset, Form1.Yset];
         bool[,] Blank = new bool[Form1.Xset, Form1.Yset];
         bool scratched = true;
-        bool PacLike = true;
+        bool PackType = true;
         #endregion
 
         #region Colors
@@ -276,7 +276,7 @@ namespace GameofLife_BrandonYates
             {
                 for (int i = 0; i < universe.GetLength(1); i++)
                 {
-                    if (PacLike == true)
+                    if (PackType == true)
                     {
                     //    if ((CountNeighborsToroidal(x, i) < 2) && universe[x, i])
                     //    {
@@ -791,7 +791,7 @@ namespace GameofLife_BrandonYates
         #endregion
 
         #region Universe Type
-        public string UniverseType() => !this.PacLike ? "Finite" : "Toroidal";
+        public string UniverseType() => !this.PackType ? "Finite" : "Toroidal";
         #endregion
 
         #region HUD Toggle
@@ -805,7 +805,7 @@ namespace GameofLife_BrandonYates
         #region Finite Toggle
         private void finiteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.PacLike = true;
+            this.PackType = true;
             this.graphicsPanel1.Invalidate();
         }
         #endregion
@@ -813,7 +813,7 @@ namespace GameofLife_BrandonYates
         #region Toroidal Toggle
         private void toroidalToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.PacLike = false;
+            this.PackType = false;
             this.graphicsPanel1.Invalidate();
         }
         #endregion
