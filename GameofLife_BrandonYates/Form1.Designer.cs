@@ -43,8 +43,8 @@
             this.gridToggle = new System.Windows.Forms.ToolStripMenuItem();
             this.neighborCountToggle = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.finiteModeButton = new System.Windows.Forms.ToolStripMenuItem();
-            this.toroidalModeButton = new System.Windows.Forms.ToolStripMenuItem();
+            this.finiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toroidalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.randomSeed = new System.Windows.Forms.ToolStripMenuItem();
@@ -164,8 +164,8 @@
             this.gridToggle,
             this.neighborCountToggle,
             this.toolStripSeparator4,
-            this.finiteModeButton,
-            this.toroidalModeButton});
+            this.finiteToolStripMenuItem,
+            this.toroidalToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.toolsToolStripMenuItem.Text = "&View";
@@ -208,22 +208,24 @@
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(177, 6);
             // 
-            // finiteModeButton
+            // finiteToolStripMenuItem
             // 
-            this.finiteModeButton.CheckOnClick = true;
-            this.finiteModeButton.Name = "finiteModeButton";
-            this.finiteModeButton.ShowShortcutKeys = false;
-            this.finiteModeButton.Size = new System.Drawing.Size(180, 22);
-            this.finiteModeButton.Text = "Finite";
-            this.finiteModeButton.Click += new System.EventHandler(this.finiteToolStripMenuItem_Click);
+            this.finiteToolStripMenuItem.Checked = true;
+            this.finiteToolStripMenuItem.CheckOnClick = true;
+            this.finiteToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.finiteToolStripMenuItem.Name = "finiteToolStripMenuItem";
+            this.finiteToolStripMenuItem.ShowShortcutKeys = false;
+            this.finiteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.finiteToolStripMenuItem.Text = "Finite";
+            this.finiteToolStripMenuItem.Click += new System.EventHandler(this.finiteToolStripMenuItem_Click);
             // 
-            // toroidalModeButton
+            // toroidalToolStripMenuItem
             // 
-            this.toroidalModeButton.CheckOnClick = true;
-            this.toroidalModeButton.Name = "toroidalModeButton";
-            this.toroidalModeButton.Size = new System.Drawing.Size(180, 22);
-            this.toroidalModeButton.Text = "Toroidal";
-            this.toroidalModeButton.Click += new System.EventHandler(this.toroidalToolStripMenuItem_Click);
+            this.toroidalToolStripMenuItem.CheckOnClick = true;
+            this.toroidalToolStripMenuItem.Name = "toroidalToolStripMenuItem";
+            this.toroidalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.toroidalToolStripMenuItem.Text = "Toroidal";
+            this.toroidalToolStripMenuItem.Click += new System.EventHandler(this.toroidalToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -577,8 +579,8 @@
         private System.Windows.Forms.ToolStripMenuItem gridAndTimeButton;
         private System.Windows.Forms.ToolStripMenuItem neighborCountToggle;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.ToolStripMenuItem finiteModeButton;
-        private System.Windows.Forms.ToolStripMenuItem toroidalModeButton;
+        private System.Windows.Forms.ToolStripMenuItem finiteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toroidalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gridToggle;
         private System.Windows.Forms.ToolStripMenuItem hUDToolStripMenuItem;
     }

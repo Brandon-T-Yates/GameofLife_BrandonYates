@@ -42,6 +42,5 @@ namespace GameofLife_BrandonYates
         public int GetGridHeight() => (int)this.height.Value;
         public void SetGridHeight(int heightV) => this.height.Value = (Decimal)heightV;
         #endregion
-
     }
 }

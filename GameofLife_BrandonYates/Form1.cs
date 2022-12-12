@@ -23,7 +23,6 @@ namespace GameofLife_BrandonYates
         bool[,] scratchPad = new bool[Form1.Xset, Form1.Yset];
         bool[,] faded = new bool[Form1.Xset, Form1.Yset];
         bool[,] Blank = new bool[Form1.Xset, Form1.Yset];
-        bool scratched = true;
         bool PackType = true;
         #endregion
 
@@ -47,7 +46,7 @@ namespace GameofLife_BrandonYates
         bool HudToggle = true;
         int generations = 0;
         int LivingCells = 0;
-        bool border;
+        bool border = true;
 
         public void SetX(int x) => Form1.Xset = x;
 
@@ -72,68 +71,47 @@ namespace GameofLife_BrandonYates
         // Calculate the next generation of cells
         private void NextGeneration()
         {
-            //int livingCells = 0;
-            //Checker();
-
+            Array.Clear(scratchPad, 0, scratchPad.Length);
             for (int y = 0; y < universe.GetLength(0); y++)
             {
                 //Go throught the cells 
                 for (int x = 0; x < universe.GetLength(0); x++)
                 {
-                    int neighborCount;
-                    scratchPad[x, y] = false;
+                    int theHood;
                     if (border)
                     {
-                        neighborCount = CountNeighborsToroidal(x, y);
+                        theHood = CountNeighborsFinite(x, y);
                     }
                     else
                     {
-                        neighborCount = CountNeighborsFinite(x, y);
+                        theHood = CountNeighborsToroidal(x, y);
                     }
-                    if (universe[x, y])
-                    {
-                        if (neighborCount < 2)
-                        {
-                            scratchPad[x, y] = false;
-                        }
-                        if (neighborCount > 3)
-                        {
-                            scratchPad[x, y] = false;
-                        }
-                        if (neighborCount == 2 || neighborCount == 3)
-                        {
-                            scratchPad[x, y] = true;
-                        }
-                    }
-                    else
-                    {
-                        if (neighborCount == 3)
-                        {
-                            scratchPad[x, y] = true;
-                        }
+                    bool cell = universe[x, y];
 
+                    if (cell == true && theHood < 2)
+                    {
+                        scratchPad.SetValue(false, x, y);
                     }
-                    //universe[y, x] = scratchPad[y, x];
-
-                    //if (scratchPad[y, x]) livingCells++;
+                    if (cell == true && theHood > 3)
+                    {
+                        scratchPad.SetValue(false, x, y);
+                    }
+                    if (cell == true && theHood == 2 || theHood == 3)
+                    {
+                        scratchPad.SetValue(true, x, y);
+                    }
+                    if (cell == false && theHood == 3)
+                    {
+                        scratchPad.SetValue(true, x, y);
+                    }
                 }
             }
             bool[,] temp = universe;
             //this.Blank = this.universe;
             universe = scratchPad;
             scratchPad = temp;
-            LivingCells = 0;
-            for (int y = 0; y < universe.GetLength(1); y++)
-            {
-                for (int x = 0; x < universe.GetLength(0); x++)
-                {
-                    if (universe[x, y])
-                    {
-                        LivingCells++;
-                    }
-                }
-            }
-                // Increment generation count
+
+            // Increment generation count
             generations++;
 
             // Update status strip generations
@@ -381,7 +359,7 @@ namespace GameofLife_BrandonYates
                     int xCheck = x + xOffset;
                     int yCheck = y + yOffset;
                     // if xOffset and yOffset are both equal to 0 then continue
-                    if ((xCheck == 0 && yCheck == 0)) { continue; }
+                    if ((xOffset == 0 && yOffset == 0)) { continue; }
                     // if xCheck is less than 0 then set to xLen - 1
                     // if yCheck is less than 0 then set to yLen - 1
                     if (xCheck < 0)
@@ -867,18 +845,22 @@ namespace GameofLife_BrandonYates
         #region Finite Toggle
         private void finiteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // Toggles On/Off Finite Universe
-            border = false;
-            this.graphicsPanel1.Invalidate();
+            //Toggles On/ Off Finite Universe
+            border = true;
+            finiteToolStripMenuItem.Checked = true;
+            toroidalToolStripMenuItem.Checked = false;
+            graphicsPanel1.Invalidate();
         }
         #endregion
 
         #region Toroidal Toggle
         private void toroidalToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // Toggles On/Off Toroidal Universe
-            border = true;
-            this.graphicsPanel1.Invalidate();
+            //Toggles On/ Off Toroidal Universe
+            border = false;
+            finiteToolStripMenuItem.Checked = false;
+            toroidalToolStripMenuItem.Checked = true;
+            graphicsPanel1.Invalidate();
         }
         #endregion
 
