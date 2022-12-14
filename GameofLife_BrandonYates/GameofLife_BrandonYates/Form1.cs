@@ -1,5 +1,4 @@
-﻿using GameofLife_BrandonYates.Properties;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -76,37 +75,37 @@ namespace GameofLife_BrandonYates
                 //Go throught the cells 
                 for (int x = 0; x < universe.GetLength(0); x++)
                 {
-                    int neighborCount;
+                    int theHood;
                     if (border)
                     {
-                        neighborCount = CountNeighborsFinite(x, y);
+                        theHood = CountNeighborsFinite(x, y);
                     }
                     else
                     {
-                        neighborCount = CountNeighborsToroidal(x, y);
+                        theHood = CountNeighborsToroidal(x, y);
                     }
                     bool cell = universe[x, y];
 
-                    if (cell == true && neighborCount < 2)
+                    if (cell == true && theHood < 2)
                     {
                         scratchPad.SetValue(false, x, y);
                     }
-                    if (cell == true && neighborCount > 3)
+                    if (cell == true && theHood > 3)
                     {
                         scratchPad.SetValue(false, x, y);
                     }
-                    if (cell == true && neighborCount == 2 || neighborCount == 3)
+                    if (cell == true && theHood == 2 || theHood == 3)
                     {
                         scratchPad.SetValue(true, x, y);
                     }
-                    if (cell == false && neighborCount == 3)
+                    if (cell == false && theHood == 3)
                     {
                         scratchPad.SetValue(true, x, y);
                     }
                 }
             }
             bool[,] temp = universe;
-            //this.Blank = this.universe;+
+            //this.Blank = this.universe;
             universe = scratchPad;
             scratchPad = temp;
 
@@ -400,8 +399,6 @@ namespace GameofLife_BrandonYates
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             // Auto saves color when clicking the X on the window
-            //Properties.Settings.Default.Timer = timer.Interval;
-            //Properties.Settings.Default.PanelColor = 
             Properties.Settings.Default.PanelColor = gridColor;
             Properties.Settings.Default.PanelColor = cellColor;
             Properties.Settings.Default.PanelColor = graphicsPanel1.BackColor;
