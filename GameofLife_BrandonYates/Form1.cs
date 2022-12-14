@@ -58,6 +58,15 @@ namespace GameofLife_BrandonYates
             InitializeComponent();
            
             graphicsPanel1.BackColor = Properties.Settings.Default.PanelColor;
+            timer.Interval = Properties.Settings.Default.Timer;
+            Yset = Properties.Settings.Default.Height;
+            Xset = Properties.Settings.Default.Width;
+            cellColor = Properties.Settings.Default.CellColor;
+            gridColor = Properties.Settings.Default.GridColor;
+            bool[,] tempGrid = new bool[Width, Height];
+            bool[,] tempGrid2 = new bool[Width, Height];
+            //universe = tempGrid;
+            //scratchPad = tempGrid2;
             // Setup the timer
             timer.Interval = 100; // milliseconds
             timer.Tick += Timer_Tick;
@@ -400,10 +409,11 @@ namespace GameofLife_BrandonYates
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             // Auto saves color when clicking the X on the window
-            //Properties.Settings.Default.Timer = timer.Interval;
-            //Properties.Settings.Default.PanelColor = 
-            Properties.Settings.Default.PanelColor = gridColor;
-            Properties.Settings.Default.PanelColor = cellColor;
+            Properties.Settings.Default.Timer = timer.Interval;
+            Properties.Settings.Default.Height = Yset;
+            Properties.Settings.Default.Width = Xset;
+            Properties.Settings.Default.CellColor = cellColor;
+            Properties.Settings.Default.GridColor = gridColor;
             Properties.Settings.Default.PanelColor = graphicsPanel1.BackColor;
             Properties.Settings.Default.Save();
         }
@@ -609,8 +619,25 @@ namespace GameofLife_BrandonYates
         private void resetButton_Click(object sender, EventArgs e)
         {
             // Resets the background color to the default color save on .exe
+            for (int y = 0; y < this.universe.GetLength(1); y++)
+            {
+                for (int x = 0; x < this.universe.GetLength(0); x++)
+                {
+                    universe[y, x] = false;
+                }
+            }
             Properties.Settings.Default.Reset();
             graphicsPanel1.BackColor = Properties.Settings.Default.PanelColor;
+            timer.Interval = Properties.Settings.Default.Timer;
+            Yset = Properties.Settings.Default.Height;
+            Xset = Properties.Settings.Default.Width;
+            cellColor = Properties.Settings.Default.CellColor;
+            gridColor = Properties.Settings.Default.GridColor;
+            bool[,] reset = new bool[Width, Height];
+            bool[,] reset2 = new bool[Width, Height];
+            universe = reset;
+            scratchPad = reset2;
+            graphicsPanel1.Invalidate();
         }
         #endregion
 
